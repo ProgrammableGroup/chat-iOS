@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--UserProfileView Controller-->
+        <scene sceneID="RvD-ID-JRH">
+            <objects>
+                <viewController id="QLB-Jb-sKT" userLabel="UserProfileView Controller" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ifm-PP-eYa">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="onS-jU-V8P">
+                                <rect key="frame" x="112.5" y="30" width="150" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="2tD-sk-ICK"/>
+                                    <constraint firstAttribute="width" constant="150" id="gGW-DB-EuZ"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kDy-C0-yK5">
+                                <rect key="frame" x="12.5" y="305" width="350" height="50"/>
+                                <color key="backgroundColor" red="0.41937598590000003" green="0.85834592580000002" blue="0.87452095750000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="350" id="IMM-ui-yuM"/>
+                                    <constraint firstAttribute="height" constant="50" id="nsa-bp-6Ry"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="Edie Profile">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GiA-YA-9D0">
+                                <rect key="frame" x="120" y="195" width="135" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="4TJ-cL-AYn"/>
+                                    <constraint firstAttribute="width" constant="135" id="kFp-vx-dF0"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="50"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="GiA-YA-9D0" firstAttribute="top" secondItem="onS-jU-V8P" secondAttribute="bottom" constant="15" id="0Pd-Ag-L5q"/>
+                            <constraint firstItem="kDy-C0-yK5" firstAttribute="top" secondItem="GiA-YA-9D0" secondAttribute="bottom" constant="50" id="4yC-Hc-QlX"/>
+                            <constraint firstItem="onS-jU-V8P" firstAttribute="centerX" secondItem="ifm-PP-eYa" secondAttribute="centerX" id="5L9-9m-aKI"/>
+                            <constraint firstItem="kDy-C0-yK5" firstAttribute="centerX" secondItem="ifm-PP-eYa" secondAttribute="centerX" id="Dup-wK-8P1"/>
+                            <constraint firstItem="GiA-YA-9D0" firstAttribute="centerX" secondItem="ifm-PP-eYa" secondAttribute="centerX" id="Pey-Wx-A8D"/>
+                            <constraint firstItem="onS-jU-V8P" firstAttribute="top" secondItem="nww-uf-1uF" secondAttribute="top" constant="30" id="Vgv-CW-un8"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="nww-uf-1uF"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gFc-71-pOa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="211.59420289855075" y="-308.03571428571428"/>
+        </scene>
+    </scenes>
+</document>
