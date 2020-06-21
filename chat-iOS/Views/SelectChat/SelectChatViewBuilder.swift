@@ -12,6 +12,9 @@ struct SelectChatViewBuilder {
         guard let selectChatViewController = SelectChatViewController.loadFromStoryboard() as? SelectChatViewController else {
             fatalError("fatal: Failed to initialize the SampleViewController")
         }
+        let model = SelectChatModel()
+        let presenter = SelectChatViewPresenter(model: model)
+        selectChatViewController.inject(with: presenter)
         return selectChatViewController
     }
 }
