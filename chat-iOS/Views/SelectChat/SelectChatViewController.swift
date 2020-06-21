@@ -14,11 +14,17 @@ final class SelectChatViewController: UIViewController {
     typealias cell = SelectChatTableViewCell
     private let cellClassName = NSStringFromClass(cell.self).components(separatedBy: ".").last!
     private var users = [Any]()
+    private var presenter: SelectChatViewPresenterProtocol!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setup()
+    }
+
+    func inject(with presenter: SelectChatViewPresenterProtocol) {
+        self.presenter = presenter
+        self.presenter.view = self
     }
 
 
@@ -44,5 +50,9 @@ extension SelectChatViewController: UITableViewDelegate, UITableViewDataSource {
 
         return cell
     }
+
+}
+
+extension SelectChatViewController: SelectChatViewPresenterOutput {
 
 }
