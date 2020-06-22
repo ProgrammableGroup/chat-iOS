@@ -12,19 +12,24 @@ final class ChatsViewController: UIViewController, UICollectionViewDelegateFlowL
     
     @IBOutlet weak var chatsCollectionView: UICollectionView!
     @IBOutlet weak var messageInputView: UIView!
+    @IBOutlet weak var messageInputViewButtomConstraint: NSLayoutConstraint!
     
-    
-    
-    var message: [String] = ["こんにちは", "こんにちは😊", "どうですか", "いいですね\nいいですね☀️",
+    @IBOutlet weak var inputTextView: UITextView!
+    @IBOutlet weak var sendButton: UIButton!
+ 
+    var message: [String] = ["こんにちは", "こんにちは😊", "どう?\nですか...?", "いいですね\nいいですね☀️",
                             "I'm told that you were a very,\n very interesting person, by analogy.",
                             "...", "123456789!@#$%^&*()_+={}|:<>?;'[]`~;',./", "そ\nし\nた\nら\nね\n.",
-                            " ", "うん\nうん"]
+                            " ", "うん\nうん", "Thank you♪"]
     
     let cellID = "cellID"
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(messageInputViewButtomConstraint.constant)
         setupChatsCollectionView()
+        setupMessageInputView()
+        setupNotificationCenter()
     }
     
     func setupChatsCollectionView() {
@@ -33,6 +38,43 @@ final class ChatsViewController: UIViewController, UICollectionViewDelegateFlowL
         self.chatsCollectionView.dataSource = self
         self.chatsCollectionView.register(ChatLogMessageCell.self, forCellWithReuseIdentifier: cellID)
         self.chatsCollectionView.delaysContentTouches = false
+    }
+    
+    func setupMessageInputView() {
+        self.inputTextView.layer.cornerRadius = 8
+        self.inputTextView.layer.borderColor = UIColor.lightGray.cgColor
+        self.inputTextView.layer.borderWidth = 1
+        self.inputTextView.layer.masksToBounds = true
+        
+        if #available(iOS 13.0, *) {
+            let image = UIImage(systemName: "paperplane.fill")
+            self.sendButton.setImage(image, for: .normal)
+        } else {
+            //TODO: 送信ボタンの画像を用意する
+        }
+        self.sendButton.tintColor = .systemTeal
+    }
+    
+    func setupNotificationCenter() {
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShowNotification(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHideNotification(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    /// キーボードが登場した時の処理。messageInputViewのBottomConstraintをキーボードの高さ分上げる
+    @objc func keyboardWillShowNotification(notification: NSNotification) {
+        guard let userInfo = notification.userInfo else { return }
+        guard let keyboard = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        
+        self.messageInputViewButtomConstraint.constant = -keyboard.cgRectValue.height + self.view.safeAreaInsets.bottom
+        UIView.animate(withDuration: 1.0, animations: { self.view.layoutIfNeeded() })
+    }
+    
+    /// キーボードが隠れた時の処理。messageInputViewのBottomConstraintを元に戻す
+    @objc func keyboardWillHideNotification(notification: NSNotification) {
+        guard notification.userInfo != nil else { return }
+        
+        self.messageInputViewButtomConstraint.constant = 0
+        UIView.animate(withDuration: 1.0, animations: { self.view.layoutIfNeeded() })
     }
 
     func inject(with presenter: ChatsViewPresenterProtocol) {
@@ -90,6 +132,11 @@ extension ChatsViewController: UICollectionViewDelegate, UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
        return UIEdgeInsets(top: 30, left: 0, bottom: 0, right: 0)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard self.inputTextView.isFirstResponder else { return }
+        self.inputTextView.resignFirstResponder()
     }
 }
 
