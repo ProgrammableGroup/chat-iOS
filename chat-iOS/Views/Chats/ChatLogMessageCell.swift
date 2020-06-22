@@ -8,6 +8,7 @@
 import UIKit
 
 class ChatLogMessageCell: UICollectionViewCell {
+    //TODO:- classとして切り出す
     let messageTextView: UITextView = {
         let textView = UITextView()
         textView.font = UIFont.systemFont(ofSize: 16)
@@ -15,7 +16,8 @@ class ChatLogMessageCell: UICollectionViewCell {
         textView.isEditable = false
         return textView
     }()
-   
+    
+    //TODO:- classとして切り出す
     let textBubbleView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(white: 0.95, alpha: 1)
@@ -23,7 +25,8 @@ class ChatLogMessageCell: UICollectionViewCell {
         view.layer.masksToBounds = true
         return view
     }()
-   
+    
+    //TODO:- classとして切り出す
     let usersProfileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
