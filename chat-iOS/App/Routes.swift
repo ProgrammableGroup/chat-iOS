@@ -9,6 +9,6 @@ import UIKit
 
 struct Routes {
     static func decideRootViewController() -> UIViewController {
-        return ChatsViewBuilder.create()
+        return SampleViewBuilder.create()
     }
 }
