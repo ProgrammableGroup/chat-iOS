@@ -5,7 +5,6 @@
 //  Created by 倉谷　明希 on 2020/06/22.
 //
 
-
 protocol UserProfileViewModelProtocol {
     var presenter: UserProfileViewModelOutput! { get set }
 }
