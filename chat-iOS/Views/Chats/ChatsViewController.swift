@@ -17,6 +17,7 @@ final class ChatsViewController: UIViewController, UICollectionViewDelegateFlowL
     @IBOutlet weak var inputTextView: UITextView!
     @IBOutlet weak var sendButton: UIButton!
  
+    //TODO:- Firesoreからデータを取得したら差し替える
     var message: [String] = ["こんにちは", "こんにちは😊", "どう?\nですか...?", "いいですね\nいいですね☀️",
                             "I'm told that you were a very,\n very interesting person, by analogy.",
                             "...", "123456789!@#$%^&*()_+={}|:<>?;'[]`~;',./", "そ\nし\nた\nら\nね\n.",
