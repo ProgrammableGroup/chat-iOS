@@ -124,15 +124,15 @@ extension ChatsViewController: UICollectionViewDelegate, UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
        
-       let size = CGSize(width: 250, height: 1000)
-       let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
-       let estimatedFrame = NSString(string: message[indexPath.item]).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18)], context: nil)
+        let size = CGSize(width: 250, height: 1000)
+        let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+        let estimatedFrame = NSString(string: message[indexPath.item]).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18)], context: nil)
        
-       return CGSize(width: self.view.frame.width, height: estimatedFrame.height + 20)
+        return CGSize(width: self.view.frame.width, height: estimatedFrame.height + 20)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-       return UIEdgeInsets(top: 30, left: 0, bottom: 0, right: 0)
+        return UIEdgeInsets(top: 30, left: 0, bottom: 0, right: 0)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
