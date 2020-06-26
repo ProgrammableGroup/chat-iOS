@@ -11,7 +11,7 @@ public extension UIViewController {
     // 命名規則がおかしいとここで落ちます。
     // 命名規則は(例 SignUpの場合)SignUp.storyboard と SignUpViewController.swiftにしてください
     class func loadFromStoryboard<T>() -> T where T: UIViewController {
-        let storyboard = UIStoryboard(name: NSStringFromClass(self).removeAt(text: "ViewController")!, bundle: nil)
+        let storyboard = UIStoryboard(name: NSStringFromClass(self).components(separatedBy: ".").last!.removeAt(text: "ViewController")!, bundle: nil)
         return storyboard.instantiateInitialViewController() as! T
     }
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="QLB-Jb-sKT">
+    <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -13,17 +13,17 @@
             <objects>
                 <viewController id="QLB-Jb-sKT" userLabel="UserProfileView Controller" customClass="UserProfileViewController" customModule="chat_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ifm-PP-eYa">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="onS-jU-V8P">
-                                <rect key="frame" x="112.5" y="30" width="150" height="150"/>
+                                <rect key="frame" x="112.5" y="30" width="95" height="95"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="onS-jU-V8P" secondAttribute="height" multiplier="1:1" id="dSG-1X-4Q0"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kDy-C0-yK5">
-                                <rect key="frame" x="70" y="285" width="235" height="50"/>
+                                <rect key="frame" x="70" y="230" width="180" height="50"/>
                                 <color key="backgroundColor" red="0.41937598590000003" green="0.85834592580000002" blue="0.87452095750000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="555-Rk-b0P"/>
@@ -34,7 +34,7 @@
                                 </state>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GiA-YA-9D0">
-                                <rect key="frame" x="120" y="195" width="135" height="60"/>
+                                <rect key="frame" x="92.5" y="140" width="135" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="4TJ-cL-AYn"/>
                                     <constraint firstAttribute="width" constant="135" id="kFp-vx-dF0"/>
