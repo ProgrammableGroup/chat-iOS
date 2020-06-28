@@ -9,6 +9,10 @@ import UIKit
 
 struct Routes {
     static func decideRootViewController() -> UIViewController {
-        return SampleViewBuilder.create()
+        //TODO:- ログインをしてるかの処理を書くこと
+        let isAuth = true
+        
+        if isAuth { return MainTabBarViewBuilder.create() }
+        return LoginViewBuilder.create()
     }
 }
