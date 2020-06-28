@@ -12,6 +12,8 @@ final class MainTabBarViewController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.selectedIndex = 0
     }
     
     required init?(coder: NSCoder) {
