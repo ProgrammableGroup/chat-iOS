@@ -28,11 +28,11 @@ final class MainTabBarViewController: UITabBarController {
         
         //TODO:- iOS12以下の場合の画像を用意すること
         if #available(iOS 13.0, *) {
-            let chatsTabBarItemImage = UIImage(systemName: "person.circle")
-            let chatsTabBarItemSelectedImage = UIImage(systemName: "person.circle.fill")
+            let chatsTabBarItemImage = UIImage(systemName: "message")
+            let chatsTabBarItemSelectedImage = UIImage(systemName: "message.fill")
             
-            let userProfileTabBarItemImage = UIImage(systemName: "message")
-            let userProfileTabBarItemSelectedImage = UIImage(systemName: "message.fill")
+            let userProfileTabBarItemImage = UIImage(systemName: "person.circle")
+            let userProfileTabBarItemSelectedImage = UIImage(systemName: "person.circle.fill")
             
             userProfileVC.tabBarItem = UITabBarItem(title: nil, image: userProfileTabBarItemImage, selectedImage: userProfileTabBarItemSelectedImage)
             chatsVC.tabBarItem = UITabBarItem(title: nil, image: chatsTabBarItemImage, selectedImage: chatsTabBarItemSelectedImage)
