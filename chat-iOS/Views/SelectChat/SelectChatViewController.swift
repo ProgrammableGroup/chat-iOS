@@ -41,13 +41,22 @@ final class SelectChatViewController: UIViewController {
 extension SelectChatViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return users.count
+        //TODO:- userModelを作ったら，`return users.count` に修正すること
+        return 5
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseCellId) as! SelectChatTableViewCell
 
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.tableView.deselectRow(at: indexPath, animated: true)
+        
+        //MARK:- チャットVCに画面遷移する
+        let chatsVC = ChatsViewBuilder.create()
+        self.navigationController?.pushViewController(chatsVC, animated: true)
     }
 
 }
