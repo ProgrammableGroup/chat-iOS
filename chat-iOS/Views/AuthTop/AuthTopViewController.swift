@@ -13,6 +13,8 @@ class AuthTopViewController: UIViewController {
     }
     
     @IBAction func signInButtonTapped(_ sender: Any) {
+        let loginViewController = LoginViewBuilder.create()
+        navigationController?.pushViewController(loginViewController, animated: true)
     }
     
 }
