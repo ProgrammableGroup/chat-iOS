@@ -10,8 +10,6 @@ import UIKit
 final class EditProfileViewController: UIViewController {
     private var presenter: EditProfileViewPresenterProtocol!
     
-    var editProfileButton = UIButton()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
