@@ -9,4 +9,10 @@ import UIKit
 
 class AuthTopViewController: UIViewController {
     
+    @IBAction func signUpButtonTapped(_ sender: Any) {
+    }
+    
+    @IBAction func signInButtonTapped(_ sender: Any) {
+    }
+    
 }
