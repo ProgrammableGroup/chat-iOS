@@ -7,7 +7,7 @@
 
 struct Room: Codable {
     let name: String?
-    let thumbnailImageURL: String
+    let thumbnailImageURL: String?
     let members: [String]
     let message: String
 }
