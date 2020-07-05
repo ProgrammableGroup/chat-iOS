@@ -7,6 +7,7 @@
 
 protocol LoginViewPresenterProtocol {
     var view: LoginViewPresenterOutput! { get set }
+    func didTapSignInButton(email: String, password: String)
 }
 
 protocol LoginViewPresenterOutput {
@@ -19,5 +20,9 @@ final class LoginViewPresenter: LoginViewPresenterProtocol, LoginViewModelOutput
     
     init(model: LoginViewModelProtocol) {
         self.model = model
+    }
+    
+    func didTapSignInButton(email: String, password: String) {
+        model.signIn(withEmail: email, password: password)
     }
 }

@@ -59,6 +59,9 @@
                                         <real key="value" value="8"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="didTapSignInButton:" destination="PhT-f7-gGV" eventType="touchUpInside" id="xzO-t5-pL2"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -79,6 +82,10 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="LVU-Lx-83S"/>
                     </view>
+                    <connections>
+                        <outlet property="emailTextField" destination="CcZ-Od-rNk" id="nih-0M-Vxd"/>
+                        <outlet property="passwordTextField" destination="dTe-Sc-UEj" id="TZJ-jy-x95"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ti1-Tz-8LN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
