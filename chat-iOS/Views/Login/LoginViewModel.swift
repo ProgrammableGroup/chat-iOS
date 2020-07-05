@@ -6,7 +6,6 @@
 //
 
 import FirebaseAuth
-import FirebaseFirestore
 
 protocol LoginViewModelProtocol {
     var presenter: LoginViewModelOutput! { get set }
@@ -14,8 +13,8 @@ protocol LoginViewModelProtocol {
 }
 
 protocol LoginViewModelOutput {
-    
 }
+
 
 final class LoginViewModel: LoginViewModelProtocol {
     var presenter: LoginViewModelOutput!
@@ -23,9 +22,7 @@ final class LoginViewModel: LoginViewModelProtocol {
     func signIn(withEmail email: String, password: String) {
         Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
             if let error = error {
-                
             }
-            
         }
     }
 }

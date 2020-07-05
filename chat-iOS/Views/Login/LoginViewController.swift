@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 final class LoginViewController: UIViewController {
     private var presenter: LoginViewPresenterProtocol!
@@ -35,5 +36,4 @@ final class LoginViewController: UIViewController {
 }
 
 extension LoginViewController: LoginViewPresenterOutput {
-
 }
