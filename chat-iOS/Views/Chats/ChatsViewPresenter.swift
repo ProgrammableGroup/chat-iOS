@@ -19,5 +19,8 @@ final class ChatsViewPresenter: ChatsViewPresenterProtocol, ChatsViewModelOutput
     
     init(model: ChatsViewModelProtocol) {
         self.model = model
+        self.model.presenter = self
+        
+        self.model.setUpFirestore()
     }
 }
