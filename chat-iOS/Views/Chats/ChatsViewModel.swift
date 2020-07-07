@@ -41,8 +41,6 @@ final class ChatsViewModel: ChatsViewModelProtocol {
     }
     
     func fetchTransScript() {
-        var transScripts: [Transcript] = Array()
-        
         //TODO:- v1とはか切り出す。また,roomIDは引数で持ってくる。このroomIDはデバック用whereFieldを使って時系列順に取り出す
         let roomID = "gjqF2hDA0SAV8sad15jU"
         self.firestore.collection("message/v1/rooms/").document(roomID).collection("transcripts").getDocuments { (documentSnapshot, error) in
@@ -53,12 +51,15 @@ final class ChatsViewModel: ChatsViewModelProtocol {
             
             guard let snapshot = documentSnapshot else { return }
                         
-            for document in snapshot.documents {
-                if !document.exists { continue }
-                transScripts.append(self.decodeTransScript(documentData: document.data()))
+            let transcripts = snapshot.documents.reduce([Transcript]()) { (array, document) -> [Transcript] in
+                var array = array
+                guard document.exists else { return array }
+                
+                array.append(self.decodeTransScript(documentData: document.data()))
+                return array
             }
             
-            self.presenter.successFetchTransScript(transScripts: transScripts)
+            self.presenter.successFetchTransScript(transScripts: transcripts)
         }
     }
 }
