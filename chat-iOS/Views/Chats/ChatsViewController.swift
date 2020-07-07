@@ -96,10 +96,10 @@ extension ChatsViewController: UICollectionViewDelegate, UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: chatsCellID, for: indexPath) as! ChatLogMessageCell
-        let messageTexst = self.transScripts[indexPath.item].text ?? ""
-        cell.messageTextView.text = messageTexst
+        let messageText = self.transScripts[indexPath.item].text ?? ""
+        cell.messageTextView.text = messageText
        
-        let estimatedMessageFrame = messageTexst.estimatedFrame()
+        let estimatedMessageFrame = messageText.estimatedFrame()
        
         //FIXME:- fromが自分のidかどうかで分岐するので式の右辺をuidに変更する
         if self.transScripts[indexPath.item].from == "bob" {
