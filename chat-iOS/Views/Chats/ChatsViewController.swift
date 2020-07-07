@@ -17,19 +17,12 @@ final class ChatsViewController: UIViewController, UICollectionViewDelegateFlowL
     @IBOutlet weak var inputTextView: UITextView!
     @IBOutlet weak var sendButton: UIButton!
  
-    //TODO:- Firesoreからデータを取得したら差し替える
-    var message: [String] = ["こんにちは", "こんにちは😊", "どう?\nですか...?", "いいですね\nいいですね☀️",
-                            "I'm told that you were a very,\n very interesting person, by analogy.",
-                            "...", "123456789!@#$%^&*()_+={}|:<>?;'[]`~;',./", "そ\nし\nた\nら\nね\n.",
-                            " ", "うん\nうん", "Thank you♪"]
-    
     var transScripts: [Transcript] = Array()
     
     let cellID = "cellID"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(messageInputViewButtomConstraint.constant)
         setupChatsCollectionView()
         setupMessageInputView()
         setupNotificationCenter()
@@ -96,17 +89,18 @@ extension ChatsViewController: ChatsViewPresenterOutput {
 
 extension ChatsViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return message.count
+        return self.transScripts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! ChatLogMessageCell
-        cell.messageTextView.text = message[indexPath.item]
+        let messageTexst = self.transScripts[indexPath.item].text ?? ""
+        cell.messageTextView.text = messageTexst
        
-        let estimatedMessageFrame = message[indexPath.item].estimatedFrame()
+        let estimatedMessageFrame = messageTexst.estimatedFrame()
        
-        //TODO:- 自分のチャットか相手のチャットで分岐する
-        if indexPath.item % 2 == 0 {
+        //FIXME:- fromが自分のidかどうかで分岐するので式の右辺をuidに変更する
+        if self.transScripts[indexPath.item].from == "self.uid" {
             cell.messageTextView.frame = CGRect(x: 66 + 8, y: 0, width: estimatedMessageFrame.width + 16, height: estimatedMessageFrame.height + 20)
             cell.textBubbleView.frame = CGRect(x: 66, y: 0, width: estimatedMessageFrame.width + 16 + 8, height: estimatedMessageFrame.height + 16)
           
@@ -125,7 +119,8 @@ extension ChatsViewController: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let estimatedMessageFrame = message[indexPath.item].estimatedFrame()
+        let messageTexst = self.transScripts[indexPath.item].text ?? ""
+        let estimatedMessageFrame = messageTexst.estimatedFrame()
         return CGSize(width: self.view.frame.width, height: estimatedMessageFrame.height + 20)
     }
     
