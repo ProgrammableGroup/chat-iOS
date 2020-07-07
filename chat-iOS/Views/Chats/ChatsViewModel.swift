@@ -9,7 +9,7 @@ import Firebase
 
 protocol ChatsViewModelProtocol {
     var presenter: ChatsViewModelOutput! { get set }
-    var firestore: Firestore! { get set }
+    var firestore: Firestore! { get }
     
     func setUpFirestore()
     func fetchTransScript()
@@ -20,8 +20,12 @@ protocol ChatsViewModelOutput {
 }
 
 final class ChatsViewModel: ChatsViewModelProtocol {
-    var firestore: Firestore!
     var presenter: ChatsViewModelOutput!
+    internal var firestore: Firestore!
+    
+    init() {
+        self.setUpFirestore()
+    }
     
     func setUpFirestore() {
         self.firestore = Firestore.firestore()
