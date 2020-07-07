@@ -23,6 +23,7 @@ final class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
     }
 
     func inject(with presenter: LoginViewPresenterProtocol) {
@@ -30,10 +31,25 @@ final class LoginViewController: UIViewController {
         self.presenter.view = self
     }
     
-    func didTapSignInButton(email: String, password: String){
+    func didTapSignInButton(email: String, password: String) {
         presenter.didTapSignInButton(email: email, password: password)
     }
 }
 
 extension LoginViewController: LoginViewPresenterOutput {
+    
+    func transitionToMainTabBar(withUser user: User) {
+        //TODO:- userを使ってMainTabBarへの遷移処理を書く
+        print(user.displayName)
+    }
+    
+    func showAlert(withMessage message: String) {
+        let alert = UIAlertController(title: "エラーが発生しました", message: message, preferredStyle: .alert)
+        let defaultAction: UIAlertAction = UIAlertAction(title: "OK", style: .default, handler: { _ in
+            print("OK!")
+        })
+        
+        alert.addAction(defaultAction)
+        present(alert, animated: false, completion: nil)
+    }
 }
