@@ -7,10 +7,12 @@
 
 protocol ChatsViewPresenterProtocol {
     var view: ChatsViewPresenterOutput! { get set }
+    
+    func didLoadViewController()
 }
 
 protocol ChatsViewPresenterOutput {
-    
+    func updateChatsCollectionView(transScripts: [Transcript])
 }
 
 final class ChatsViewPresenter: ChatsViewPresenterProtocol, ChatsViewModelOutput {
@@ -19,5 +21,14 @@ final class ChatsViewPresenter: ChatsViewPresenterProtocol, ChatsViewModelOutput
     
     init(model: ChatsViewModelProtocol) {
         self.model = model
+        self.model.presenter = self
+    }
+    
+    func didLoadViewController() {
+        self.model.fetchTransScript()
+    }
+    
+    func successFetchTransScript(transScripts: [Transcript]) {
+        self.view.updateChatsCollectionView(transScripts: transScripts)
     }
 }
