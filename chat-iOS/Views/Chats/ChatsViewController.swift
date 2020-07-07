@@ -87,7 +87,7 @@ final class ChatsViewController: UIViewController, UICollectionViewDelegateFlowL
 }
 
 extension ChatsViewController: ChatsViewPresenterOutput {
-    func updateChatsTableView(transScripts: [Transcript]) {
+    func updateChatsCollectionView(transScripts: [Transcript]) {
         self.transScripts = transScripts
         
         DispatchQueue.main.async { self.chatsCollectionView.reloadData() }

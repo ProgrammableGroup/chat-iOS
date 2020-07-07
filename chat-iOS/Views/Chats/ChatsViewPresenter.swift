@@ -10,7 +10,7 @@ protocol ChatsViewPresenterProtocol {
 }
 
 protocol ChatsViewPresenterOutput {
-    func updateChatsTableView(transScripts: [Transcript])
+    func updateChatsCollectionView(transScripts: [Transcript])
 }
 
 final class ChatsViewPresenter: ChatsViewPresenterProtocol, ChatsViewModelOutput {
@@ -25,6 +25,6 @@ final class ChatsViewPresenter: ChatsViewPresenterProtocol, ChatsViewModelOutput
     }
     
     func successFetchTransScript(transScripts: [Transcript]) {
-        self.view.updateChatsTableView(transScripts: transScripts)
+        self.view.updateChatsCollectionView(transScripts: transScripts)
     }
 }
