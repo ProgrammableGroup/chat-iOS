@@ -36,9 +36,7 @@ final class ChatsViewModel: ChatsViewModelProtocol {
         do {
             return try Firestore.Decoder().decode(Transcript.self, from: documentData)
         } catch {
-            print("Decode Error")
-            //デコード失敗したら空のスクリプトを返す
-            return Transcript(from: "", to: "", text: "")
+            fatalError("Error decoding firestore data")
         }
     }
     
