@@ -11,11 +11,12 @@ protocol ChatsViewModelProtocol {
     var presenter: ChatsViewModelOutput! { get set }
     var firestore: Firestore! { get set }
     
-    func setUpFirestore()    
+    func setUpFirestore()
+    func fetchTransScript()
 }
 
 protocol ChatsViewModelOutput {
-    
+    func successFetchTransScript(transScripts: [Transcript])
 }
 
 final class ChatsViewModel: ChatsViewModelProtocol {
@@ -27,4 +28,38 @@ final class ChatsViewModel: ChatsViewModelProtocol {
         let settings = FirestoreSettings()
         self.firestore.settings = settings
     }
+    
+    /// documentDataをTransScriptにデコードする関数
+    /// - Parameter documentData: FirestoreのDocumentData
+    /// - Returns: デコードしたやつ
+    private func decodeTransScript(documentData: [String: Any]) -> Transcript {
+        do {
+            return try Firestore.Decoder().decode(Transcript.self, from: documentData)
+        } catch {
+            print("Decode Error")
+            //デコード失敗したら空のスクリプトを返す
+            return Transcript(from: "", to: "", text: "")
+        }
+    }
+    
+    func fetchTransScript() {
+        var transScripts: [Transcript] = Array()
+        
+        self.firestore.collection("message/v1/rooms/").document("roomID").collection("transcripts").getDocuments { (documentSnapshot, error) in
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let snapshot = documentSnapshot else { return }
+                        
+            for document in snapshot.documents {
+                if !document.exists { continue }
+                transScripts.append(self.decodeTransScript(documentData: document.data()))
+            }
+            
+            self.presenter.successFetchTransScript(transScripts: transScripts)
+        }
+    }
+   
 }

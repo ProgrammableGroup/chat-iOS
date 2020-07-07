@@ -10,7 +10,7 @@ protocol ChatsViewPresenterProtocol {
 }
 
 protocol ChatsViewPresenterOutput {
-    
+    func updateChatsTableView(transScripts: [Transcript])
 }
 
 final class ChatsViewPresenter: ChatsViewPresenterProtocol, ChatsViewModelOutput {
@@ -22,5 +22,9 @@ final class ChatsViewPresenter: ChatsViewPresenterProtocol, ChatsViewModelOutput
         self.model.presenter = self
         
         self.model.setUpFirestore()
+    }
+    
+    func successFetchTransScript(transScripts: [Transcript]) {
+        self.view.updateChatsTableView(transScripts: transScripts)
     }
 }
