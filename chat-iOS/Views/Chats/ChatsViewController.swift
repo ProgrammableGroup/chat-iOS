@@ -26,6 +26,8 @@ final class ChatsViewController: UIViewController, UICollectionViewDelegateFlowL
         setupChatsCollectionView()
         setupMessageInputView()
         setupNotificationCenter()
+        
+        self.presenter.didLoadViewController()
     }
     
     func setupChatsCollectionView() {

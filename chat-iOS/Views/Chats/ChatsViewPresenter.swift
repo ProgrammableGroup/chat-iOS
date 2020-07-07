@@ -7,6 +7,8 @@
 
 protocol ChatsViewPresenterProtocol {
     var view: ChatsViewPresenterOutput! { get set }
+    
+    func didLoadViewController()
 }
 
 protocol ChatsViewPresenterOutput {
@@ -22,6 +24,10 @@ final class ChatsViewPresenter: ChatsViewPresenterProtocol, ChatsViewModelOutput
         self.model.presenter = self
         
         self.model.setUpFirestore()
+    }
+    
+    func didLoadViewController() {
+        self.model.fetchTransScript()
     }
     
     func successFetchTransScript(transScripts: [Transcript]) {
