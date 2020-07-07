@@ -24,6 +24,18 @@ final class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupViews()
+    }
+    
+    private func setupViews() {
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+        
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismissKeyboard)))
+    }
+    
+    @objc private func handleDismissKeyboard() {
+        view.endEditing(true)
     }
 
     func inject(with presenter: LoginViewPresenterProtocol) {
@@ -45,11 +57,16 @@ extension LoginViewController: LoginViewPresenterOutput {
     
     func showAlert(withMessage message: String) {
         let alert = UIAlertController(title: "エラーが発生しました", message: message, preferredStyle: .alert)
-        let defaultAction: UIAlertAction = UIAlertAction(title: "OK", style: .default, handler: { _ in
-            print("OK!")
-        })
+        let defaultAction: UIAlertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         
         alert.addAction(defaultAction)
         present(alert, animated: false, completion: nil)
+    }
+}
+
+extension LoginViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
