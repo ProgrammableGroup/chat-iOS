@@ -23,6 +23,8 @@ final class ChatsViewController: UIViewController, UICollectionViewDelegateFlowL
                             "...", "123456789!@#$%^&*()_+={}|:<>?;'[]`~;',./", "そ\nし\nた\nら\nね\n.",
                             " ", "うん\nうん", "Thank you♪"]
     
+    var transScripts: [Transcript] = Array()
+    
     let cellID = "cellID"
     
     override func viewDidLoad() {
@@ -85,7 +87,11 @@ final class ChatsViewController: UIViewController, UICollectionViewDelegateFlowL
 }
 
 extension ChatsViewController: ChatsViewPresenterOutput {
-    
+    func updateChatsTableView(transScripts: [Transcript]) {
+        self.transScripts = transScripts
+        
+        DispatchQueue.main.async { self.chatsCollectionView.reloadData() }
+    }
 }
 
 extension ChatsViewController: UICollectionViewDelegate, UICollectionViewDataSource {
