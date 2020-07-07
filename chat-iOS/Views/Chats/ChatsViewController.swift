@@ -102,7 +102,7 @@ extension ChatsViewController: UICollectionViewDelegate, UICollectionViewDataSou
         let estimatedMessageFrame = messageTexst.estimatedFrame()
        
         //FIXME:- fromが自分のidかどうかで分岐するので式の右辺をuidに変更する
-        if self.transScripts[indexPath.item].from == "self.uid" {
+        if self.transScripts[indexPath.item].from == "bob" {
             cell.messageTextView.frame = CGRect(x: 66 + 8, y: 0, width: estimatedMessageFrame.width + 16, height: estimatedMessageFrame.height + 20)
             cell.textBubbleView.frame = CGRect(x: 66, y: 0, width: estimatedMessageFrame.width + 16 + 8, height: estimatedMessageFrame.height + 16)
           
