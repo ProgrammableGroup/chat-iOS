@@ -19,7 +19,7 @@ final class ChatsViewController: UIViewController, UICollectionViewDelegateFlowL
  
     var transScripts: [Transcript] = Array()
     
-    let cellID = "cellID"
+    let chatsCellID = "chatsCellID"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +34,7 @@ final class ChatsViewController: UIViewController, UICollectionViewDelegateFlowL
         self.chatsCollectionView.collectionViewLayout = UICollectionViewFlowLayout()
         self.chatsCollectionView.delegate = self
         self.chatsCollectionView.dataSource = self
-        self.chatsCollectionView.register(ChatLogMessageCell.self, forCellWithReuseIdentifier: cellID)
+        self.chatsCollectionView.register(ChatLogMessageCell.self, forCellWithReuseIdentifier: chatsCellID)
         self.chatsCollectionView.delaysContentTouches = false
     }
     
@@ -95,7 +95,7 @@ extension ChatsViewController: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! ChatLogMessageCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: chatsCellID, for: indexPath) as! ChatLogMessageCell
         let messageTexst = self.transScripts[indexPath.item].text ?? ""
         cell.messageTextView.text = messageTexst
        
