@@ -7,10 +7,11 @@
 
 protocol UserProfileViewPresenterProtocol {
     var view: UserProfileViewPresenterOutput! { get set }
+    func didLoadViewController()
 }
 
 protocol UserProfileViewPresenterOutput {
-    
+    func setUser()
 }
 
 final class UserProfileViewPresenter: UserProfileViewPresenterProtocol, UserProfileViewModelOutput {
@@ -19,5 +20,13 @@ final class UserProfileViewPresenter: UserProfileViewPresenterProtocol, UserProf
     
     init(model: UserProfileViewModelProtocol) {
         self.model = model
+        self.model.presenter = self
+    }
+    
+    func didLoadViewController() {
+        model.fetchUser()
+    }
+    func successFetchUser() {
+        view.setUser()
     }
 }

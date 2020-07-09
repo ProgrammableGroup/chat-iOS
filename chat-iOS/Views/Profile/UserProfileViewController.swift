@@ -10,10 +10,19 @@ import UIKit
 final class UserProfileViewController: UIViewController {
     private var presenter: UserProfileViewPresenterProtocol!
 
+    @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var profileNameLabel: UILabel!
+    @IBOutlet weak var editProfileButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        editProfileButton.layer.cornerRadius = 10.0
+        self.presenter.didLoadViewController()
     }
-
+    
+    @IBAction func tapEditProfileButton(_ sender: Any) {
+    }
+    
     func inject(with presenter: UserProfileViewPresenterProtocol) {
         self.presenter = presenter
         self.presenter.view = self
@@ -21,5 +30,7 @@ final class UserProfileViewController: UIViewController {
 }
 
 extension UserProfileViewController: UserProfileViewPresenterOutput {
-
+    func setUser() {
+        
+    }
 }
