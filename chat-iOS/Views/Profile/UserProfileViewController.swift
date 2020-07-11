@@ -9,7 +9,7 @@ import UIKit
 
 final class UserProfileViewController: UIViewController {
     private var presenter: UserProfileViewPresenterProtocol!
-
+    
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var profileNameLabel: UILabel!
     @IBOutlet weak var editProfileButton: UIButton!
@@ -21,6 +21,7 @@ final class UserProfileViewController: UIViewController {
     }
     
     @IBAction func tapEditProfileButton(_ sender: Any) {
+        self.presenter.didLoadViewController()
     }
     
     func inject(with presenter: UserProfileViewPresenterProtocol) {
@@ -30,7 +31,13 @@ final class UserProfileViewController: UIViewController {
 }
 
 extension UserProfileViewController: UserProfileViewPresenterOutput {
-    func setUser() {
+    func presentEditProfileViewController() {
+        let editProfileVC = UserProfileViewBuilder.create()
         
+        editProfileVC.modalPresentationStyle = .fullScreen
+        self.present(editProfileVC, animated: true, completion: nil)
     }
+    func setUser() {
+    }
+    
 }
