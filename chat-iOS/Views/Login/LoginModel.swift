@@ -25,6 +25,7 @@ final class LoginModel: LoginModelProtocol {
         Auth.auth().signIn(withEmail: email, password: password) { [weak self] (result, error) in
             if let err = error {
                 self?.presenter.onError(error: err)
+                return
             }
             
             if let uid = result?.user.uid {
@@ -35,6 +36,7 @@ final class LoginModel: LoginModelProtocol {
                 userReference.getDocument { (snapshot, error) in
                     if let err = error {
                         self?.presenter.onError(error: err)
+                        return
                     }
                     
                     if let snapshot = snapshot {
