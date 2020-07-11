@@ -37,9 +37,10 @@ final class LoginViewPresenter: LoginViewPresenterProtocol, LoginModelOutput {
         }
     }
     
-    func onError(error: Error) {
+    func onError(error: Error?) {
         DispatchQueue.main.async { [weak self] in
-            self?.view.showAlert(withMessage: error.localizedDescription)
+            let message = error?.localizedDescription ?? "ログインできませんでした"
+            self?.view.showAlert(withMessage: message)
         }
     }
 }

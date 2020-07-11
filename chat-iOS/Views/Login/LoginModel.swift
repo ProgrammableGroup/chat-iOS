@@ -15,7 +15,7 @@ protocol LoginModelProtocol {
 
 protocol LoginModelOutput: class {
     func successSignIn(withUser user: User)
-    func onError(error: Error)
+    func onError(error: Error?)
 }
 
 final class LoginModel: LoginModelProtocol {
@@ -28,24 +28,29 @@ final class LoginModel: LoginModelProtocol {
                 return
             }
             
-            if let uid = result?.user.uid {
-                let userReference = Firestore.firestore()
-                    .collection("message").document("v1")
-                    .collection("users").document(uid)
+            guard let uid = result?.user.uid else {
+                self?.presenter.onError(error: nil)
+                return
+            }
+            
+            let userReference = Firestore.firestore()
+                .collection("message").document("v1")
+                .collection("users").document(uid)
+            
+            userReference.getDocument { (snapshot, error) in
+                if let err = error {
+                    self?.presenter.onError(error: err)
+                    return
+                }
                 
-                userReference.getDocument { (snapshot, error) in
-                    if let err = error {
-                        self?.presenter.onError(error: err)
-                        return
-                    }
-                    
-                    if let snapshot = snapshot {
-                        do {
-                            guard let user = try snapshot.data(as: User.self) else { return }
-                            self?.presenter.successSignIn(withUser: user)
-                        } catch let err {
-                            self?.presenter.onError(error: err)
+                if let snapshot = snapshot {
+                    do {
+                        guard let user = try snapshot.data(as: User.self) else {
+                            return
                         }
+                        self?.presenter.successSignIn(withUser: user)
+                    } catch let err {
+                        self?.presenter.onError(error: err)
                     }
                 }
             }
