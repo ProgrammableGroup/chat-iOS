@@ -18,11 +18,11 @@ protocol LoginViewPresenterOutput: class {
     func showAlert(withMessage message: String)
 }
 
-final class LoginViewPresenter: LoginViewPresenterProtocol, LoginViewModelOutput {
-    var view: LoginViewPresenterOutput!
-    private var model: LoginViewModelProtocol
+final class LoginViewPresenter: LoginViewPresenterProtocol, LoginModelOutput {
+    weak var view: LoginViewPresenterOutput!
+    private var model: LoginModelProtocol
     
-    init(model: LoginViewModelProtocol) {
+    init(model: LoginModelProtocol) {
         self.model = model
         self.model.presenter = self
     }
@@ -43,4 +43,3 @@ final class LoginViewPresenter: LoginViewPresenterProtocol, LoginViewModelOutput
         }
     }
 }
-

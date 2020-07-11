@@ -12,7 +12,7 @@ struct LoginViewBuilder {
         guard let loginViewController = LoginViewController.loadFromStoryboard() as? LoginViewController else {
             fatalError("fatal: Failed to initialize the SampleViewController")
         }
-        let model = LoginViewModel()
+        let model = LoginModel()
         let presenter = LoginViewPresenter(model: model)
         loginViewController.inject(with: presenter)
         return loginViewController

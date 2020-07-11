@@ -8,18 +8,18 @@
 import FirebaseFirestore
 import FirebaseAuth
 
-protocol LoginViewModelProtocol {
-    var presenter: LoginViewModelOutput! { get set }
+protocol LoginModelProtocol {
+    var presenter: LoginModelOutput! { get set }
     func signIn(withEmail email: String, password: String)
 }
 
-protocol LoginViewModelOutput: class {
+protocol LoginModelOutput: class {
     func successSignIn(withUser user: User)
     func onError(error: Error)
 }
 
-final class LoginViewModel: LoginViewModelProtocol {
-    var presenter: LoginViewModelOutput!
+final class LoginModel: LoginModelProtocol {
+    weak var presenter: LoginModelOutput!
     
     func signIn(withEmail email: String, password: String) {
         Auth.auth().signIn(withEmail: email, password: password) { [weak self] (result, error) in
