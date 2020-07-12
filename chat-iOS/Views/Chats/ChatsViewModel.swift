@@ -49,7 +49,7 @@ final class ChatsViewModel: ChatsViewModelProtocol {
     func fetchTransScript() {
         //TODO:- v1とはか切り出す。また,roomIDは引数で持ってくる。このroomIDはデバック用whereFieldを使って時系列順に取り出す
         let roomID = "gjqF2hDA0SAV8sad15jU"
-        self.firestore.collection("message/v1/rooms/").document(roomID).collection("transcripts").addSnapshotListener { (documentSnapshot, error) in
+        self.firestore.collection("message/v1/rooms/").document(roomID).collection("transcripts").order(by: "createdAt", descending: false).addSnapshotListener { (documentSnapshot, error) in
             if let error = error {
                 print("Error: \(error.localizedDescription)")
                 return
