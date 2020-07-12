@@ -33,9 +33,9 @@ final class UserProfileViewController: UIViewController {
 extension UserProfileViewController: UserProfileViewPresenterOutput {
     func presentEditProfileViewController() {
         let editProfileVC = EditProfileViewBuilder.create()
-        
-        editProfileVC.modalPresentationStyle = .fullScreen
-        self.present(editProfileVC, animated: true, completion: nil)
+        let navigationController = UINavigationController(rootViewController: editProfileVC)
+        navigationController.modalPresentationStyle = .fullScreen
+        self.present(navigationController, animated: true, completion: nil)
     }
     func setUser() {
     }
