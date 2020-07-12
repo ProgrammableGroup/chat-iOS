@@ -87,6 +87,7 @@
                         <outlet property="inputTextView" destination="j8h-Uq-9rg" id="Tru-LV-b33"/>
                         <outlet property="messageInputView" destination="QCX-ai-gqr" id="JoA-T4-aum"/>
                         <outlet property="messageInputViewButtomConstraint" destination="WGi-LT-yp6" id="O0C-Io-fVL"/>
+                        <outlet property="messageInputViewHeightConstraint" destination="UGq-2n-Cqy" id="eou-eg-vdB"/>
                         <outlet property="sendButton" destination="Ofk-Vq-hvM" id="6Tb-6W-Qzl"/>
                     </connections>
                 </viewController>

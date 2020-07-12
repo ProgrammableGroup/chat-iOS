@@ -7,12 +7,13 @@
 
 import UIKit
 
-final class ChatsViewController: UIViewController, UICollectionViewDelegateFlowLayout {
+final class ChatsViewController: UIViewController, UICollectionViewDelegateFlowLayout, UITextViewDelegate {
     private var presenter: ChatsViewPresenterProtocol!
     
     @IBOutlet weak var chatsCollectionView: UICollectionView!
     @IBOutlet weak var messageInputView: UIView!
     @IBOutlet weak var messageInputViewButtomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var messageInputViewHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var inputTextView: UITextView!
     @IBOutlet weak var sendButton: UIButton!
@@ -43,6 +44,8 @@ final class ChatsViewController: UIViewController, UICollectionViewDelegateFlowL
         self.inputTextView.layer.borderColor = UIColor.lightGray.cgColor
         self.inputTextView.layer.borderWidth = 1
         self.inputTextView.layer.masksToBounds = true
+        self.inputTextView.font = UIFont.systemFont(ofSize: 15)
+        self.inputTextView.delegate = self
         
         if #available(iOS 13.0, *) {
             let image = UIImage(systemName: "paperplane.fill")
@@ -75,6 +78,14 @@ final class ChatsViewController: UIViewController, UICollectionViewDelegateFlowL
         UIView.animate(withDuration: 1.0, animations: { self.view.layoutIfNeeded() })
     }
     
+    /// `self.inputTextView`が変化した際に呼ばれる関数
+    func textViewDidChange(_ textView: UITextView) {
+        print(textView.contentSize.height)
+        guard textView.contentSize.height < 34.0 * 5 else { return }
+        self.messageInputViewHeightConstraint.constant = textView.contentSize.height + 17
+        UIView.animate(withDuration: 0.25, animations: { self.view.layoutIfNeeded() })
+    }
+    
     @IBAction func tapSendButton(_ sender: Any) {
         guard let text = self.inputTextView.text else { return }
         guard !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
@@ -103,6 +114,8 @@ extension ChatsViewController: ChatsViewPresenterOutput {
     
     func removeTextOfInputTextView() {
         self.inputTextView.text = String()
+        self.messageInputViewHeightConstraint.constant = 50
+        UIView.animate(withDuration: 0.25, animations: { self.view.layoutIfNeeded() })
     }
 }
 
