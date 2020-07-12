@@ -99,6 +99,13 @@ extension ChatsViewController: ChatsViewPresenterOutput {
     
     func removeTextOfInputTextView() {
         self.inputTextView.text = String()
+        
+        DispatchQueue.main.async {
+            let contentHeight = self.chatsCollectionView.contentSize.height
+            let frameHeight = self.chatsCollectionView.frame.height
+            self.chatsCollectionView.setContentOffset(CGPoint(x: 0, y: contentHeight - frameHeight + 30), animated: true)
+        }
+        
     }
 }
 
