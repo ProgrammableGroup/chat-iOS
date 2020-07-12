@@ -75,7 +75,6 @@ final class ChatsViewController: UIViewController, UICollectionViewDelegateFlowL
         UIView.animate(withDuration: 1.0, animations: { self.view.layoutIfNeeded() })
     }
     
-    
     @IBAction func tapSendButton(_ sender: Any) {
         guard let text = self.inputTextView.text else { return }
         guard !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
@@ -83,7 +82,6 @@ final class ChatsViewController: UIViewController, UICollectionViewDelegateFlowL
         self.presenter.didTapSendButton(messageText: text)
     }
     
-
     func inject(with presenter: ChatsViewPresenterProtocol) {
         self.presenter = presenter
         self.presenter.view = self
@@ -94,18 +92,17 @@ extension ChatsViewController: ChatsViewPresenterOutput {
     func updateChatsCollectionView(transScripts: [Transcript]) {
         self.transScripts = transScripts
         
-        DispatchQueue.main.async { self.chatsCollectionView.reloadData() }
+        DispatchQueue.main.async {
+            self.chatsCollectionView.reloadData()
+            
+            //collectionViewを一番下までスクロールさせる
+            let indexPath = IndexPath(item: self.transScripts.count - 1, section: 0)
+            self.chatsCollectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
+        }
     }
     
     func removeTextOfInputTextView() {
         self.inputTextView.text = String()
-        
-        DispatchQueue.main.async {
-            let contentHeight = self.chatsCollectionView.contentSize.height
-            let frameHeight = self.chatsCollectionView.frame.height
-            self.chatsCollectionView.setContentOffset(CGPoint(x: 0, y: contentHeight - frameHeight + 30), animated: true)
-        }
-        
     }
 }
 
