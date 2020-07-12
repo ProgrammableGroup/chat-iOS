@@ -21,7 +21,7 @@ final class UserProfileViewController: UIViewController {
     }
     
     @IBAction func tapEditProfileButton(_ sender: Any) {
-        self.presenter.didLoadViewController()
+        self.presenter.didTapEditProfileButton()
     }
     
     func inject(with presenter: UserProfileViewPresenterProtocol) {
@@ -32,7 +32,7 @@ final class UserProfileViewController: UIViewController {
 
 extension UserProfileViewController: UserProfileViewPresenterOutput {
     func presentEditProfileViewController() {
-        let editProfileVC = UserProfileViewBuilder.create()
+        let editProfileVC = EditProfileViewBuilder.create()
         
         editProfileVC.modalPresentationStyle = .fullScreen
         self.present(editProfileVC, animated: true, completion: nil)

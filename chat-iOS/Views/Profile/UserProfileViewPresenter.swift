@@ -8,6 +8,7 @@
 protocol UserProfileViewPresenterProtocol {
     var view: UserProfileViewPresenterOutput! { get set }
     func didLoadViewController()
+    func didTapEditProfileButton()
 }
 
 protocol UserProfileViewPresenterOutput {
