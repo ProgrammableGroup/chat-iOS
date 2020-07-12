@@ -13,6 +13,8 @@ protocol ChatsViewModelProtocol {
     
     func setUpFirestore()
     func fetchTransScript()
+    
+    func sendMessage(messageText: String)
 }
 
 protocol ChatsViewModelOutput {
@@ -65,5 +67,9 @@ final class ChatsViewModel: ChatsViewModelProtocol {
             
             self.presenter.successFetchTransScript(transScripts: transcripts)
         }
+    }
+    
+    func sendMessage(messageText: String) {
+        
     }
 }

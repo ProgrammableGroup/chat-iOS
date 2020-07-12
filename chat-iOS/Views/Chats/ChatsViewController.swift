@@ -74,6 +74,15 @@ final class ChatsViewController: UIViewController, UICollectionViewDelegateFlowL
         self.messageInputViewButtomConstraint.constant = 0
         UIView.animate(withDuration: 1.0, animations: { self.view.layoutIfNeeded() })
     }
+    
+    
+    @IBAction func tapSendButton(_ sender: Any) {
+        guard let text = self.inputTextView.text else { return }
+        guard !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
+        
+        self.presenter.didTapSendButton(messageText: text)
+    }
+    
 
     func inject(with presenter: ChatsViewPresenterProtocol) {
         self.presenter = presenter

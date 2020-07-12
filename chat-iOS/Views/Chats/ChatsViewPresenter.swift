@@ -9,6 +9,7 @@ protocol ChatsViewPresenterProtocol {
     var view: ChatsViewPresenterOutput! { get set }
     
     func didLoadViewController()
+    func didTapSendButton(messageText: String)
 }
 
 protocol ChatsViewPresenterOutput {
@@ -30,5 +31,9 @@ final class ChatsViewPresenter: ChatsViewPresenterProtocol, ChatsViewModelOutput
     
     func successFetchTransScript(transScripts: [Transcript]) {
         self.view.updateChatsCollectionView(transScripts: transScripts)
+    }
+    
+    func didTapSendButton(messageText: String) {
+        self.model.sendMessage(messageText: messageText)
     }
 }
