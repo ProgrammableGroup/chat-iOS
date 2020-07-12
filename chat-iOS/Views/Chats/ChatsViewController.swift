@@ -96,6 +96,10 @@ extension ChatsViewController: ChatsViewPresenterOutput {
         
         DispatchQueue.main.async { self.chatsCollectionView.reloadData() }
     }
+    
+    func removeTextOfInputTextView() {
+        self.inputTextView.text = String()
+    }
 }
 
 extension ChatsViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -117,6 +121,7 @@ extension ChatsViewController: UICollectionViewDelegate, UICollectionViewDataSou
           
             cell.usersProfileImageView.isHidden = false
             cell.textBubbleView.backgroundColor = UIColor(white: 0.95, alpha: 1)
+            cell.messageTextView.textColor = .black
         } else {
             cell.messageTextView.frame = CGRect(x: view.frame.width - estimatedMessageFrame.width - 16 - 16, y: 0, width: estimatedMessageFrame.width + 16, height: estimatedMessageFrame.height + 20)
             cell.textBubbleView.frame = CGRect(x: view.frame.width - estimatedMessageFrame.width - 16 - 8 - 16, y: 0, width: estimatedMessageFrame.width + 16 + 8, height: estimatedMessageFrame.height + 16)

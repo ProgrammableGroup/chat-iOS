@@ -18,6 +18,7 @@ protocol ChatsViewModelProtocol {
 
 protocol ChatsViewModelOutput {
     func successFetchTransScript(transScripts: [Transcript])
+    func successSendMessage()
 }
 
 final class ChatsViewModel: ChatsViewModelProtocol {
@@ -48,7 +49,7 @@ final class ChatsViewModel: ChatsViewModelProtocol {
     func fetchTransScript() {
         //TODO:- v1とはか切り出す。また,roomIDは引数で持ってくる。このroomIDはデバック用whereFieldを使って時系列順に取り出す
         let roomID = "gjqF2hDA0SAV8sad15jU"
-        self.firestore.collection("message/v1/rooms/").document(roomID).collection("transcripts").getDocuments { (documentSnapshot, error) in
+        self.firestore.collection("message/v1/rooms/").document(roomID).collection("transcripts").addSnapshotListener { (documentSnapshot, error) in
             if let error = error {
                 print("Error: \(error.localizedDescription)")
                 return
@@ -73,7 +74,9 @@ final class ChatsViewModel: ChatsViewModelProtocol {
         //TODO:- v1とはか切り出す。また,roomIDは引数で持ってくる。このroomIDはデバック用whereFieldを使って時系列順に取り出す
         let roomID = "gjqF2hDA0SAV8sad15jU"
         do {
-            let _ = try self.firestore.collection("message/v1/rooms/").document(roomID).collection("transcripts").addDocument(from: transcript)
+            _ = try self.firestore.collection("message/v1/rooms/").document(roomID).collection("transcripts").addDocument(from: transcript)
+            
+            self.presenter.successSendMessage()
         } catch let error {
             print("Error: \(error.localizedDescription)")
             return

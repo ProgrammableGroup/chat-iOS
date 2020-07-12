@@ -14,6 +14,7 @@ protocol ChatsViewPresenterProtocol {
 
 protocol ChatsViewPresenterOutput {
     func updateChatsCollectionView(transScripts: [Transcript])
+    func removeTextOfInputTextView()
 }
 
 final class ChatsViewPresenter: ChatsViewPresenterProtocol, ChatsViewModelOutput {
@@ -35,5 +36,9 @@ final class ChatsViewPresenter: ChatsViewPresenterProtocol, ChatsViewModelOutput
     
     func didTapSendButton(messageText: String) {
         self.model.sendMessage(messageText: messageText)
+    }
+    
+    func successSendMessage() {
+        self.view.removeTextOfInputTextView()
     }
 }
