@@ -12,13 +12,13 @@ protocol ChatsViewPresenterProtocol {
     func didTapSendButton(messageText: String)
 }
 
-protocol ChatsViewPresenterOutput {
+protocol ChatsViewPresenterOutput: class {
     func updateChatsCollectionView(transScripts: [Transcript])
     func removeTextOfInputTextView()
 }
 
 final class ChatsViewPresenter: ChatsViewPresenterProtocol, ChatsViewModelOutput {
-    var view: ChatsViewPresenterOutput!
+    weak var view: ChatsViewPresenterOutput!
     private var model: ChatsViewModelProtocol
     
     init(model: ChatsViewModelProtocol) {

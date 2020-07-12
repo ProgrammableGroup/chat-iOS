@@ -16,15 +16,15 @@ protocol ChatsViewModelProtocol {
     func sendMessage(messageText: String)
 }
 
-protocol ChatsViewModelOutput {
+protocol ChatsViewModelOutput: class {
     func successFetchTransScript(transScripts: [Transcript])
     func successSendMessage()
 }
 
 final class ChatsViewModel: ChatsViewModelProtocol {
-    var presenter: ChatsViewModelOutput!
+    weak var presenter: ChatsViewModelOutput!
     private var firestore: Firestore!
-    private var listener:  ListenerRegistration?
+    private var listener: ListenerRegistration?
     
     init() {
         self.setUpFirestore()
