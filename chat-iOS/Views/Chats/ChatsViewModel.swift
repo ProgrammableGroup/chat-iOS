@@ -69,6 +69,14 @@ final class ChatsViewModel: ChatsViewModelProtocol {
     }
     
     func sendMessage(messageText: String) {
-        
+        let transcript = Transcript(from: "bob", to: "fox", text: messageText)
+        //TODO:- v1とはか切り出す。また,roomIDは引数で持ってくる。このroomIDはデバック用whereFieldを使って時系列順に取り出す
+        let roomID = "gjqF2hDA0SAV8sad15jU"
+        do {
+            try self.firestore.collection("message/v1/rooms/").document(roomID).collection("transcripts").addDocument(from: transcript)
+        } catch let error {
+            print("Error: \(error.localizedDescription)")
+            return
+        }
     }
 }
