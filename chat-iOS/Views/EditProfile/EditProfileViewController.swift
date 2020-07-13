@@ -11,7 +11,7 @@ final class EditProfileViewController: UIViewController {
     private var presenter: EditProfileViewPresenterProtocol!
     
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var ChangePhotoButton: UIButton!
+    @IBOutlet weak var changePhotoButton: UIButton!
     @IBOutlet weak var nameTextField: UITextField!
     
     
@@ -55,7 +55,7 @@ final class EditProfileViewController: UIViewController {
         print("セーブボタンタップされた")
     }
     
-    @IBAction func didSelectPhotoButton(_ sender: Any) {
+    @IBAction func tapChangePhotoButton(_ sender: Any) {
         
         let alertSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
         

@@ -25,6 +25,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uV1-d9-yY7">
                                 <rect key="frame" x="114.5" y="180" width="146" height="30"/>
                                 <state key="normal" title="Change Profile Photo"/>
+                                <connections>
+                                    <action selector="tapChangePhotoButton:" destination="JkP-ln-k6v" eventType="touchUpInside" id="QVm-kZ-eFk"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name   Current user name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YA0-yQ-Kle">
                                 <rect key="frame" x="30" y="255" width="315" height="22"/>
@@ -46,7 +49,7 @@
                         <viewLayoutGuide key="safeArea" id="aeI-dB-Qj5"/>
                     </view>
                     <connections>
-                        <outlet property="ChangePhotoButton" destination="uV1-d9-yY7" id="Z3W-xp-eEU"/>
+                        <outlet property="changePhotoButton" destination="uV1-d9-yY7" id="M3D-hs-UaN"/>
                         <outlet property="imageView" destination="MVS-av-F9l" id="NIe-gq-AAu"/>
                         <outlet property="nameTextField" destination="YA0-yQ-Kle" id="hvU-Pv-47W"/>
                     </connections>
