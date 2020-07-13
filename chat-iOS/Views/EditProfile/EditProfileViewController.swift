@@ -36,23 +36,48 @@ final class EditProfileViewController: UIViewController {
     }
     
     func setupNavigationItem() {
-       self.navigationItem.title = "Edit Profile"
-       let stopItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(tapStopEditProfileButton))
-       stopItem.tintColor = .black
-       self.navigationItem.leftBarButtonItem = stopItem
-       let saveItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(tapSaveEditProfileButton))
-       saveItem.tintColor = .black
-       self.navigationItem.rightBarButtonItem = saveItem
+        self.navigationItem.title = "Edit Profile"
+        let stopItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(tapStopEditProfileButton))
+        stopItem.tintColor = .black
+        self.navigationItem.leftBarButtonItem = stopItem
+        let saveItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(tapSaveEditProfileButton))
+        saveItem.tintColor = .black
+        self.navigationItem.rightBarButtonItem = saveItem
     }
     
     //TODO:- NaviBarでバツボタン押されたときの処理をかく
     @objc func tapStopEditProfileButton() {
-       print("キャンセルボタンタップされた")
-       self.dismiss(animated: true, completion: nil) //この処理はmvpで行う
+        print("キャンセルボタンタップされた")
+        self.dismiss(animated: true, completion: nil) //この処理はmvpで行う
     }
     //TODO: ここでデータをセーブする処理を行う
     @objc func tapSaveEditProfileButton() {
-       print("セーブボタンタップされた")
+        print("セーブボタンタップされた")
+    }
+    
+    @IBAction func didSelectPhotoButton(_ sender: Any) {
+        
+        let alertSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
+        
+        let takeAction = UIAlertAction(title: "写真を撮影", style: UIAlertAction.Style.default, handler: {
+            (action: UIAlertAction!) in
+        })
+        let pickAction = UIAlertAction(title: "写真を選択", style: UIAlertAction.Style.default, handler: {
+            (action: UIAlertAction!) in
+        })
+        let deleteAction = UIAlertAction(title: "写真を削除", style: UIAlertAction.Style.destructive, handler: {
+            (action: UIAlertAction!) in
+        })
+        let cancelAction = UIAlertAction(title: "キャンセル", style: UIAlertAction.Style.cancel, handler: {
+            (action: UIAlertAction!) in
+        })
+        
+        alertSheet.addAction(takeAction)
+        alertSheet.addAction(pickAction)
+        alertSheet.addAction(deleteAction)
+        alertSheet.addAction(cancelAction)
+        
+        self.present(alertSheet, animated: true, completion: nil)
     }
 }
 
