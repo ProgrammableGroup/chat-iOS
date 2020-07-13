@@ -7,12 +7,13 @@
 
 import UIKit
 
-final class ChatsViewController: UIViewController, UICollectionViewDelegateFlowLayout {
+final class ChatsViewController: UIViewController, UICollectionViewDelegateFlowLayout, UITextViewDelegate {
     private var presenter: ChatsViewPresenterProtocol!
     
     @IBOutlet weak var chatsCollectionView: UICollectionView!
     @IBOutlet weak var messageInputView: UIView!
     @IBOutlet weak var messageInputViewButtomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var messageInputViewHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var inputTextView: UITextView!
     @IBOutlet weak var sendButton: UIButton!
@@ -43,6 +44,8 @@ final class ChatsViewController: UIViewController, UICollectionViewDelegateFlowL
         self.inputTextView.layer.borderColor = UIColor.lightGray.cgColor
         self.inputTextView.layer.borderWidth = 1
         self.inputTextView.layer.masksToBounds = true
+        self.inputTextView.font = UIFont.systemFont(ofSize: 15)
+        self.inputTextView.delegate = self
         
         if #available(iOS 13.0, *) {
             let image = UIImage(systemName: "paperplane.fill")
@@ -74,7 +77,22 @@ final class ChatsViewController: UIViewController, UICollectionViewDelegateFlowL
         self.messageInputViewButtomConstraint.constant = 0
         UIView.animate(withDuration: 1.0, animations: { self.view.layoutIfNeeded() })
     }
-
+    
+    /// `self.inputTextView`が変化した際に呼ばれる関数
+    func textViewDidChange(_ textView: UITextView) {
+        print(textView.contentSize.height)
+        guard textView.contentSize.height < 34.0 * 5 else { return }
+        self.messageInputViewHeightConstraint.constant = textView.contentSize.height + 17
+        UIView.animate(withDuration: 0.25, animations: { self.view.layoutIfNeeded() })
+    }
+    
+    @IBAction func tapSendButton(_ sender: Any) {
+        guard let text = self.inputTextView.text else { return }
+        guard !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
+        
+        self.presenter.didTapSendButton(messageText: text)
+    }
+    
     func inject(with presenter: ChatsViewPresenterProtocol) {
         self.presenter = presenter
         self.presenter.view = self
@@ -85,7 +103,19 @@ extension ChatsViewController: ChatsViewPresenterOutput {
     func updateChatsCollectionView(transScripts: [Transcript]) {
         self.transScripts = transScripts
         
-        DispatchQueue.main.async { self.chatsCollectionView.reloadData() }
+        DispatchQueue.main.async {
+            self.chatsCollectionView.reloadData()
+            
+            //collectionViewを一番下までスクロールさせる
+            let indexPath = IndexPath(item: self.transScripts.count - 1, section: 0)
+            self.chatsCollectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
+        }
+    }
+    
+    func removeTextOfInputTextView() {
+        self.inputTextView.text = String()
+        self.messageInputViewHeightConstraint.constant = 50
+        UIView.animate(withDuration: 0.25, animations: { self.view.layoutIfNeeded() })
     }
 }
 
@@ -108,6 +138,7 @@ extension ChatsViewController: UICollectionViewDelegate, UICollectionViewDataSou
           
             cell.usersProfileImageView.isHidden = false
             cell.textBubbleView.backgroundColor = UIColor(white: 0.95, alpha: 1)
+            cell.messageTextView.textColor = .black
         } else {
             cell.messageTextView.frame = CGRect(x: view.frame.width - estimatedMessageFrame.width - 16 - 16, y: 0, width: estimatedMessageFrame.width + 16, height: estimatedMessageFrame.height + 20)
             cell.textBubbleView.frame = CGRect(x: view.frame.width - estimatedMessageFrame.width - 16 - 8 - 16, y: 0, width: estimatedMessageFrame.width + 16 + 8, height: estimatedMessageFrame.height + 16)
