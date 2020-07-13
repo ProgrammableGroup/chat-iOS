@@ -13,6 +13,6 @@ struct Routes {
         let isAuthenticated = true
         
         if isAuthenticated { return MainTabBarViewBuilder.create() }
-        return LoginViewBuilder.create()
+        return UINavigationController(rootViewController: AuthTopViewBuilder.create())
     }
 }
