@@ -18,7 +18,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         if #available(iOS 13, *) {
         } else {
             window = UIWindow(frame: UIScreen.main.bounds)
-            window?.rootViewController = Routes.decideRootViewController()
+            window?.rootViewController = RootViewController()
             window?.makeKeyAndVisible()
         }
         return true
