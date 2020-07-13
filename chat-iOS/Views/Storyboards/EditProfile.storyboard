@@ -16,23 +16,44 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MVS-av-F9l">
-                                <rect key="frame" x="67" y="62" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="MVS-av-F9l">
+                                <rect key="frame" x="125" y="30" width="125" height="125"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="MVS-av-F9l" secondAttribute="height" multiplier="1:1" id="yNa-gc-mj8"/>
+                                </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uV1-d9-yY7">
-                                <rect key="frame" x="114" y="213" width="146" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uV1-d9-yY7">
+                                <rect key="frame" x="114.5" y="180" width="146" height="30"/>
                                 <state key="normal" title="Change Profile Photo"/>
                             </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name   Current user name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YA0-yQ-Kle">
+                                <rect key="frame" x="30" y="255" width="315" height="22"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="uV1-d9-yY7" firstAttribute="top" secondItem="MVS-av-F9l" secondAttribute="bottom" constant="25" id="1Kg-Bf-OHf"/>
+                            <constraint firstItem="aeI-dB-Qj5" firstAttribute="trailing" secondItem="YA0-yQ-Kle" secondAttribute="trailing" constant="30" id="3QJ-0u-ZDU"/>
+                            <constraint firstItem="MVS-av-F9l" firstAttribute="top" secondItem="aeI-dB-Qj5" secondAttribute="top" constant="30" id="71l-X2-E7X"/>
+                            <constraint firstItem="uV1-d9-yY7" firstAttribute="centerX" secondItem="Ow7-Xy-i6f" secondAttribute="centerX" id="BN8-q1-bcZ"/>
+                            <constraint firstItem="YA0-yQ-Kle" firstAttribute="leading" secondItem="aeI-dB-Qj5" secondAttribute="leading" constant="30" id="NOZ-e4-3eU"/>
+                            <constraint firstItem="MVS-av-F9l" firstAttribute="leading" secondItem="aeI-dB-Qj5" secondAttribute="leading" constant="125" id="gTA-Vx-vqt"/>
+                            <constraint firstItem="YA0-yQ-Kle" firstAttribute="top" secondItem="uV1-d9-yY7" secondAttribute="bottom" constant="45" id="itU-Pc-NdY"/>
+                            <constraint firstItem="MVS-av-F9l" firstAttribute="centerX" secondItem="Ow7-Xy-i6f" secondAttribute="centerX" id="mqE-3P-WNL"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="aeI-dB-Qj5"/>
                     </view>
+                    <connections>
+                        <outlet property="ChangePhotoButton" destination="uV1-d9-yY7" id="Z3W-xp-eEU"/>
+                        <outlet property="imageView" destination="MVS-av-F9l" id="NIe-gq-AAu"/>
+                        <outlet property="nameTextField" destination="YA0-yQ-Kle" id="hvU-Pv-47W"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ia4-Dc-8wE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="78" y="72"/>
+            <point key="canvasLocation" x="77.599999999999994" y="71.514242878560722"/>
         </scene>
     </scenes>
 </document>
