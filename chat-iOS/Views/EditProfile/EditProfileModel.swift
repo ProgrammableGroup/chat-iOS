@@ -7,6 +7,7 @@
 
 protocol EditProfileModelProtocol {
     var presenter: EditProfileModelOutput! { get set }
+    func saveProfile()
 }
 
 protocol EditProfileModelOutput {
@@ -15,5 +16,9 @@ protocol EditProfileModelOutput {
 
 final class EditProfileModel: EditProfileModelProtocol {
     var presenter: EditProfileModelOutput!
+    
+    func saveProfile() {
+        
+    }
 }
 
