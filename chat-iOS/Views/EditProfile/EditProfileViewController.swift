@@ -19,20 +19,15 @@ final class EditProfileViewController: UIViewController {
         super.viewDidLoad()
         
         setupNavigationItem()
-        
-        let border = CALayer()
-        let width = CGFloat(1.0)
-        border.borderColor = UIColor.gray.cgColor
-        border.frame = CGRect(x: 0, y: nameTextField.frame.size.height - width, width:  nameTextField.frame.size.width, height: 1)
-        
-        border.borderWidth = width
-        
-        nameTextField.layer.addSublayer(border)
+        setupNameTextField()
     }
+    
+    
     
     func inject(with presenter: EditProfileViewPresenterProtocol) {
         self.presenter = presenter
         self.presenter.view = self
+        
     }
     
     func setupNavigationItem() {
@@ -45,20 +40,31 @@ final class EditProfileViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = saveItem
     }
     
+    func setupNameTextField(){
+        self.nameTextField.addBorderBottom(borderWidth: 1.0, color: .gray)
+    }
+    
     //TODO:- NaviBarでバツボタン押されたときの処理をかく
     @objc func tapStopEditProfileButton() {
         print("キャンセルボタンタップされた")
-        self.dismiss(animated: true, completion: nil) //この処理はmvpで行う
+        
+        self.presenter.didTapStopEditProfileButton()
+    
     }
     //TODO: ここでデータをセーブする処理を行う
     @objc func tapSaveEditProfileButton() {
         print("セーブボタンタップされた")
+        
+        self.presenter.didTapSaveEditProfileButton()
+        
     }
     
     @IBAction func tapChangePhotoButton(_ sender: Any) {
         
-        let alertSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
+        self.presenter.didTapChangePhotoButton()
         
+        let alertSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
+
         let takeAction = UIAlertAction(title: "写真を撮影", style: UIAlertAction.Style.default, handler: {
             (action: UIAlertAction!) in
         })
@@ -71,16 +77,21 @@ final class EditProfileViewController: UIViewController {
         let cancelAction = UIAlertAction(title: "キャンセル", style: UIAlertAction.Style.cancel, handler: {
             (action: UIAlertAction!) in
         })
-        
+
         alertSheet.addAction(takeAction)
         alertSheet.addAction(pickAction)
         alertSheet.addAction(deleteAction)
         alertSheet.addAction(cancelAction)
-        
+
         self.present(alertSheet, animated: true, completion: nil)
     }
 }
 
 extension EditProfileViewController: EditProfileViewPresenterOutput {
-    
+    func dismissEditProfileViewController(){
+        self.dismiss(animated: true, completion: nil)
+        
+        
+    }
 }
+

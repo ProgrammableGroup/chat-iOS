@@ -7,6 +7,7 @@
 
 protocol EditProfileModelProtocol {
     var presenter: EditProfileModelOutput! { get set }
+    
 }
 
 protocol EditProfileModelOutput {
@@ -15,5 +16,7 @@ protocol EditProfileModelOutput {
 
 final class EditProfileModel: EditProfileModelProtocol {
     var presenter: EditProfileModelOutput!
+    
+    
 }
 
