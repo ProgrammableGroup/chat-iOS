@@ -52,7 +52,7 @@ extension LoginViewController: LoginViewPresenterOutput {
     
     func transitionToMainTabBar(withUser user: User) {
         //TODO:- userを使ってMainTabBarへの遷移処理を書く
-        print(user.displayName)
+        RootViewController.instance.transition(to: .main)
     }
     
     func showAlert(withMessage message: String) {
