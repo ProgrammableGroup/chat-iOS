@@ -40,9 +40,11 @@ final class EditProfileViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = saveItem
     }
     
-    func setupNameTextField(){
+    func setupNameTextField() {
         self.nameTextField.addBorderBottom(borderWidth: 1.0, color: .gray)
     }
+    
+    
     
     //TODO:- NaviBarでバツボタン押されたときの処理をかく
     @objc func tapStopEditProfileButton() {
@@ -68,22 +70,23 @@ final class EditProfileViewController: UIViewController {
 }
 
 extension EditProfileViewController: EditProfileViewPresenterOutput {
-    func dismissEditProfileViewController(){
+    func dismissEditProfileViewController() {
         self.dismiss(animated: true, completion: nil)
       
     }
     
-    func showActionSheet(){
+    func showActionSheet() {
         let alertSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
         
         let takeAction = UIAlertAction(title: "写真を撮影", style: UIAlertAction.Style.default, handler: {
             (action: UIAlertAction!) in
             print("写真撮影タップされた")
+            self.presenter.didTapTakePhotoAction()
         })
         let pickAction = UIAlertAction(title: "写真を選択", style: UIAlertAction.Style.default, handler: {
             (action: UIAlertAction!) in
             print("写真選択タップされた")
-            
+            self.presenter.didTapPickupPhotoAction()
         })
         let deleteAction = UIAlertAction(title: "写真を削除", style: UIAlertAction.Style.destructive, handler: {
             (action: UIAlertAction!) in
@@ -102,6 +105,43 @@ extension EditProfileViewController: EditProfileViewPresenterOutput {
             self.present(alertSheet, animated: true, completion: nil)
         }
     }
+    
+    
+    func showImagePickerControllerAsPhotoLibrary() {
+        let photoPickerVC = UIImagePickerController()
+        photoPickerVC.sourceType = .photoLibrary
+        photoPickerVC.delegate = self
+    
+        DispatchQueue.main.async {
+            self.present(photoPickerVC, animated: true, completion: nil)
+        }
+    }
+    
+    func showImagePickerControllerAsCamera() {
+        let photoPickerVC = UIImagePickerController()
+        photoPickerVC.sourceType = .camera
+        photoPickerVC.delegate = self
+        
+        DispatchQueue.main.async {
+            self.present(photoPickerVC, animated: true, completion: nil)
+        }
+    }
+    
 }
 
+extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        // キャンセルボタンを押された時に呼ばれる
+        print("イメージピッカーでキャンセル押された")
+        picker.dismiss(animated: true, completion: nil)
+    }
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let pickerImage = (info[UIImagePickerController.InfoKey.originalImage] as? UIImage) else { return }
+        
+        self.imageView.image = pickerImage
+        picker.dismiss(animated: true)
+    }
+    
+}
 
