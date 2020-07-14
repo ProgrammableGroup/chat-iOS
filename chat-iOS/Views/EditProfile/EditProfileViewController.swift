@@ -62,36 +62,46 @@ final class EditProfileViewController: UIViewController {
     @IBAction func tapChangePhotoButton(_ sender: Any) {
         
         self.presenter.didTapChangePhotoButton()
-        
-        let alertSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
-
-        let takeAction = UIAlertAction(title: "写真を撮影", style: UIAlertAction.Style.default, handler: {
-            (action: UIAlertAction!) in
-        })
-        let pickAction = UIAlertAction(title: "写真を選択", style: UIAlertAction.Style.default, handler: {
-            (action: UIAlertAction!) in
-        })
-        let deleteAction = UIAlertAction(title: "写真を削除", style: UIAlertAction.Style.destructive, handler: {
-            (action: UIAlertAction!) in
-        })
-        let cancelAction = UIAlertAction(title: "キャンセル", style: UIAlertAction.Style.cancel, handler: {
-            (action: UIAlertAction!) in
-        })
-
-        alertSheet.addAction(takeAction)
-        alertSheet.addAction(pickAction)
-        alertSheet.addAction(deleteAction)
-        alertSheet.addAction(cancelAction)
-
-        self.present(alertSheet, animated: true, completion: nil)
     }
+        
+        
 }
 
 extension EditProfileViewController: EditProfileViewPresenterOutput {
     func dismissEditProfileViewController(){
         self.dismiss(animated: true, completion: nil)
+      
+    }
+    
+    func showActionSheet(){
+        let alertSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
         
+        let takeAction = UIAlertAction(title: "写真を撮影", style: UIAlertAction.Style.default, handler: {
+            (action: UIAlertAction!) in
+            print("写真撮影タップされた")
+        })
+        let pickAction = UIAlertAction(title: "写真を選択", style: UIAlertAction.Style.default, handler: {
+            (action: UIAlertAction!) in
+            print("写真選択タップされた")
+            
+        })
+        let deleteAction = UIAlertAction(title: "写真を削除", style: UIAlertAction.Style.destructive, handler: {
+            (action: UIAlertAction!) in
+            print("写真削除タップされた")
+        })
+        let cancelAction = UIAlertAction(title: "キャンセル", style: UIAlertAction.Style.cancel, handler: {
+            (action: UIAlertAction!) in
+        })
         
+        alertSheet.addAction(takeAction)
+        alertSheet.addAction(pickAction)
+        alertSheet.addAction(deleteAction)
+        alertSheet.addAction(cancelAction)
+        
+        DispatchQueue.main.async {
+            self.present(alertSheet, animated: true, completion: nil)
+        }
     }
 }
+
 

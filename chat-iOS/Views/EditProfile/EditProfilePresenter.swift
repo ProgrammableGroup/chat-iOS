@@ -14,6 +14,7 @@ protocol EditProfileViewPresenterProtocol {
 
 protocol EditProfileViewPresenterOutput {
     func dismissEditProfileViewController()
+    func showActionSheet()
 }
 
 final class EditProfileViewPresenter: EditProfileViewPresenterProtocol, EditProfileModelOutput {
@@ -33,7 +34,7 @@ final class EditProfileViewPresenter: EditProfileViewPresenterProtocol, EditProf
         
     }
     func didTapChangePhotoButton(){
-        
+        view.showActionSheet()
     }
 
 }
