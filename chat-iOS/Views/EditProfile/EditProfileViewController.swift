@@ -20,6 +20,7 @@ final class EditProfileViewController: UIViewController {
         
         setupNavigationItem()
         setupNameTextField()
+        setupImageView()
     }
     
     
@@ -44,7 +45,9 @@ final class EditProfileViewController: UIViewController {
         self.nameTextField.addBorderBottom(borderWidth: 1.0, color: .gray)
     }
     
-    
+    func setupImageView() {
+        self.imageView.layer.cornerRadius = self.imageView.frame.width / 2
+    }
     
     //TODO:- NaviBarでバツボタン押されたときの処理をかく
     @objc func tapStopEditProfileButton() {
