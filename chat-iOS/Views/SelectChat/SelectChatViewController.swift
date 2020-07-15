@@ -12,11 +12,19 @@ class SelectChatViewController: UIViewController {
     @IBOutlet weak var selectChatTableView: UITableView!
 
     private let reuseCellId = "SelectChatTableViewCell"
+    private var presenter: SelectChatViewPresenterProtocol!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupSelectChatTableView()
+    }
+
+    func inject(with presenter: SelectChatViewPresenterProtocol) {
+        
+        self.presenter = presenter
+        self.presenter.view = self
+
     }
 
     func setupSelectChatTableView() {
@@ -45,4 +53,8 @@ extension SelectChatViewController: UITableViewDataSource {
         return cell
     }
 
+}
+
+extension SelectChatViewController: SelectChatViewPresenterOutput {
+    
 }
