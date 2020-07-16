@@ -11,11 +11,13 @@ protocol SelectChatViewPresenterProtocol {
     var view: SelectChatViewPresenterOutput! { get set }
     var currentChatRooms: [Room] { get }
     func didLoadViewController()
+    func didTapTableViewCell(selectedRoom room: Room)
 }
 
 protocol SelectChatViewPresenterOutput: class {
     func setCurrentChatUsers()
     func showAlert(withMessage message: String)
+    func transitionToChatsViewController(selectedRoom room: Room)
 }
 
 final class SelectChatViewPresenter: SelectChatViewPresenterProtocol, SelectChatModelOutput {
@@ -47,6 +49,12 @@ final class SelectChatViewPresenter: SelectChatViewPresenterProtocol, SelectChat
         DispatchQueue.main.async { [weak self] in
             let message = error?.localizedDescription ?? "チャット相手を取得できませんでした"
             self?.view.showAlert(withMessage: message)
+        }
+    }
+
+    func didTapTableViewCell(selectedRoom room: Room) {
+        DispatchQueue.main.async { [weak self] in
+            self?.view.transitionToChatsViewController(selectedRoom : room)
         }
     }
 

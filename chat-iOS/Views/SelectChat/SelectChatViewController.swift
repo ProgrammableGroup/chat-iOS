@@ -41,6 +41,13 @@ class SelectChatViewController: UIViewController {
 }
 
 extension SelectChatViewController: UITableViewDelegate {
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let selectedRoom = currentChatRooms[indexPath.row]
+        self.presenter.didTapTableViewCell(selectedRoom: selectedRoom)
+    }
+
 }
 
 extension SelectChatViewController: UITableViewDataSource {
@@ -70,6 +77,12 @@ extension SelectChatViewController: SelectChatViewPresenterOutput {
 
         alert.addAction(defaultAction)
         present(alert, animated: false, completion: nil)
+    }
+
+    func transitionToChatsViewController(selectedRoom room: Room) {
+        //TODO:- 画面遷移時に加えて値の引き渡しをする
+        let chatsViewController = ChatsViewBuilder.create()
+        self.navigationController?.pushViewController(chatsViewController, animated: true)
     }
     
 }
