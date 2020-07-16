@@ -24,5 +24,11 @@ class SelectChatTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+
+    func generateCell(withRoom room: Room) {
+        userNameLabel.text = room.name
+        lastMessageLabel.text = room.name
+        //TODO:- Storageから画像を取得して表示する
+    }
     
 }

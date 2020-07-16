@@ -12,12 +12,14 @@ class SelectChatViewController: UIViewController {
     @IBOutlet weak var selectChatTableView: UITableView!
 
     private let reuseCellId = "SelectChatTableViewCell"
+    private var currentChatRooms: [Room] = []
     private var presenter: SelectChatViewPresenterProtocol!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupSelectChatTableView()
+        self.presenter.didLoadViewController()
     }
 
     func inject(with presenter: SelectChatViewPresenterProtocol) {
@@ -44,17 +46,30 @@ extension SelectChatViewController: UITableViewDelegate {
 extension SelectChatViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return currentChatRooms.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseCellId) as! SelectChatTableViewCell
-
+        cell.generateCell(withRoom: currentChatRooms[indexPath.row])
         return cell
     }
 
 }
 
 extension SelectChatViewController: SelectChatViewPresenterOutput {
+
+    func setCurrentChatUsers() {
+        self.currentChatRooms = self.presenter.currentChatRooms
+        self.selectChatTableView.reloadData()
+    }
+
+    func showAlert(withMessage message: String) {
+        let alert = UIAlertController(title: "エラーが発生しました", message: message, preferredStyle: .alert)
+        let defaultAction: UIAlertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+
+        alert.addAction(defaultAction)
+        present(alert, animated: false, completion: nil)
+    }
     
 }
