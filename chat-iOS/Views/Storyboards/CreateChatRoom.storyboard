@@ -83,7 +83,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="tcc-fV-RE3"/>
                                 </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="2" minimumInteritemSpacing="2" id="cEF-ht-Inc">
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="2" minimumInteritemSpacing="2" id="cEF-ht-Inc">
                                     <size key="itemSize" width="85" height="90"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -91,7 +91,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" reuseIdentifier="SelectedUserCollectionViewCell" id="umP-Mw-QxN" customClass="SelectedUserCollectionViewCell" customModule="chat_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="85" height="90"/>
+                                        <rect key="frame" x="0.0" y="5" width="85" height="90"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="tqK-oP-DPh">
                                             <rect key="frame" x="0.0" y="0.0" width="85" height="90"/>

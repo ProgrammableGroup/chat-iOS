@@ -176,6 +176,7 @@ extension CreateChatRoomViewController: UICollectionViewDelegate, UICollectionVi
 
 extension CreateChatRoomViewController: UISearchBarDelegate {
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        guard scrollView == self.serchUserTableview else { return }
         guard self.userNameSearchBar.isFirstResponder else { return }
         self.userNameSearchBar.resignFirstResponder()
     }
