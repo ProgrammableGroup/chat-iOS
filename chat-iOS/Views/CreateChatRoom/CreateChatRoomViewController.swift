@@ -86,11 +86,15 @@ extension CreateChatRoomViewController: UITableViewDelegate, UITableViewDataSour
                          as? SearchUserTableviewCell else { return UITableViewCell() }
         
         cell.userNameLabel.text = self.searchedUsersArray[indexPath.item].displayName
+        if !self.selectedUsersArray.filter({ $0.id == searchedUsersArray[indexPath.item].id ?? ""}).isEmpty {
+            cell.changeFillImageRadioImageView()
+        } else {
+            cell.changeNotFillImageRadioImageView()
+        }
+        
         //TODO:Firestoreから取得した後で表示し直すこと
         if #available(iOS 13.0, *) {
             cell.profileImageView.image = UIImage(systemName: "bolt.circle.fill")
-            cell.radioImageView.image = UIImage(systemName: "checkmark.seal.fill")
-            cell.radioImageView.tintColor = .systemGreen
         } else {
             // Fallback on earlier versions
         }

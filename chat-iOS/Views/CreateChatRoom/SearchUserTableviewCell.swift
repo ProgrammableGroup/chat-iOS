@@ -35,9 +35,27 @@ class SearchUserTableviewCell: UITableViewCell {
         self.userNameLabel.adjustsFontSizeToFitWidth = true
         self.userNameLabel.minimumScaleFactor = 0.4
     }
+    
+    public func changeFillImageRadioImageView() {
+        if #available(iOS 13.0, *) {
+            self.radioImageView.image = UIImage(systemName: "checkmark.seal.fill")
+            self.radioImageView.tintColor = .systemGreen
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+    
+    public func changeNotFillImageRadioImageView() {
+        if #available(iOS 13.0, *) {
+            self.radioImageView.image = UIImage(systemName: "checkmark.seal")
+            self.radioImageView.tintColor = .systemGray
+        } else {
+            // Fallback on earlier versions
+        }
+    }
 
-     override func setSelected(_ selected: Bool, animated: Bool) {
-         super.setSelected(selected, animated: animated)
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
 
-     }
+    }
 }
