@@ -21,9 +21,13 @@ protocol CreateChatRoomViewPresenterOutput {
     func reloadSerchUserTableview(updatedSearchedUsersArray: [User])
     func reloadSerchUserTableview()
     func reloadSelectedUserCollectionView(updatedSelectedUsersArray: [User])
+    
     func hiddenSelectedUsersCollectionView()
     func dismissCreateChatRoomVC()
     func clearSearchUserTableView()
+    
+    func startActivityIndicator()
+    func stopActivityIndicator()
 }
 
 final class CreateChatRoomViewPresenter: CreateChatRoomViewPresenterProtocol, CreateChatRoomModelOutput {
@@ -63,11 +67,13 @@ final class CreateChatRoomViewPresenter: CreateChatRoomViewPresenterProtocol, Cr
     
     func didSearchBarSearchButtonClicked(searchText: String) {
         self.view.clearSearchUserTableView()
+        self.view.startActivityIndicator()
         self.model.searchUser(searchText: searchText)
     }
     
     func successSearchUser(searchedUsers: [User]) {
         self.view.reloadSerchUserTableview(updatedSearchedUsersArray: searchedUsers)
+        self.view.stopActivityIndicator()
     }
     
     func successRemoveSelectedUser(updatedSelectedUsersArray: [User]) {

@@ -19,6 +19,8 @@ final class CreateChatRoomViewController: UIViewController {
     var searchedUsersArray: [User] = [User(id: "1212", displayName: "Bob", profileImageURL: "http..."), User(id: "1324", displayName: "Joe", profileImageURL: "http...")]
     var selectedUsersArray: [User] = Array()
     
+    var activityIndicator = UIActivityIndicatorView()
+    
     private let searchedUsersCellID = "SearchUserTableviewCell"
     private let selectedUsersCellID = "SelectedUserCollectionViewCell"
         
@@ -29,6 +31,7 @@ final class CreateChatRoomViewController: UIViewController {
         self.setupUserSearchBar()
         self.setupSerchUserTableview()
         self.setupSelectedUserCollectionView()
+        self.setupActivityIndicator()
         self.setupNotificationCenter()
     }
     
@@ -57,6 +60,13 @@ final class CreateChatRoomViewController: UIViewController {
         self.selectedUserCollectionView.collectionViewLayout.invalidateLayout()
         self.selectedUserCollectionView.delegate = self
         self.selectedUserCollectionView.dataSource = self
+    }
+    
+    private func setupActivityIndicator() {
+        self.activityIndicator.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        self.activityIndicator.center = self.view.center
+        self.activityIndicator.hidesWhenStopped = true
+        self.view.addSubview(self.activityIndicator)
     }
     
     func setupNotificationCenter() {
@@ -137,6 +147,14 @@ extension CreateChatRoomViewController: CreateChatRoomViewPresenterOutput {
         DispatchQueue.main.async {
             self.serchUserTableview.reloadData()
         }
+    }
+    
+    func startActivityIndicator() {
+        DispatchQueue.main.async { self.activityIndicator.startAnimating() }
+    }
+    
+    func stopActivityIndicator() {
+        DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
     }
 }
 
