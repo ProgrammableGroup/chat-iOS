@@ -13,7 +13,25 @@ class SelectedUserCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var deleteUserButton: UIButton!
     
     override func awakeFromNib() {
-       super.awakeFromNib()
-
+        super.awakeFromNib()
+        
+        self.setupProfileImageView()
+        self.setupUserNameLabel()
+        self.setupDeleteUserButton()
+    }
+    
+    private func setupProfileImageView() {
+        self.profileImageView.layer.cornerRadius = self.profileImageView.frame.width / 2
+        self.profileImageView.layer.masksToBounds = true
+    }
+    
+    private func setupUserNameLabel() {
+        self.userNameLabel.adjustsFontSizeToFitWidth = true
+        self.userNameLabel.minimumScaleFactor = 0.4
+    }
+    
+    private func setupDeleteUserButton() {
+        self.deleteUserButton.layer.cornerRadius = self.deleteUserButton.frame.width / 2
+        self.deleteUserButton.layer.masksToBounds = true
     }
 }
