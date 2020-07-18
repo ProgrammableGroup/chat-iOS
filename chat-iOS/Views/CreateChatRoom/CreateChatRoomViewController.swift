@@ -68,7 +68,7 @@ final class CreateChatRoomViewController: UIViewController {
     @objc func keyboardWillShowNotification(notification: NSNotification) {
         guard let userInfo = notification.userInfo else { return }
         guard let keyboard = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
-        print("登場")
+        
         self.selectedUserCollectionViewBottomsConstraints.constant = -keyboard.cgRectValue.height + self.view.safeAreaInsets.bottom
         UIView.animate(withDuration: 1.0, animations: { self.view.layoutIfNeeded() })
     }
@@ -76,7 +76,7 @@ final class CreateChatRoomViewController: UIViewController {
     /// キーボードが隠れた時の処理
     @objc func keyboardWillHideNotification(notification: NSNotification) {
         guard notification.userInfo != nil else { return }
-        print("バイバイ")
+
         self.selectedUserCollectionViewBottomsConstraints.constant = 0
         UIView.animate(withDuration: 1.0, animations: { self.view.layoutIfNeeded() })
     }
@@ -100,15 +100,17 @@ final class CreateChatRoomViewController: UIViewController {
 }
 
 extension CreateChatRoomViewController: CreateChatRoomViewPresenterOutput {
-    func reloadSerchUserTableview_updateSelectedUsersArray(updatedSelectedUsersArray: [User]) {
-        self.selectedUsersArray = updatedSelectedUsersArray
+    func reloadSerchUserTableview(updatedSearchedUsersArray: [User]) {
+        self.searchedUsersArray = updatedSearchedUsersArray
         
-        DispatchQueue.main.async {
-            self.serchUserTableview.reloadData()
-        }
+        DispatchQueue.main.async { self.serchUserTableview.reloadData() }
     }
     
-    func reloadSelectedUserCollectionView_updateSelectedUsersArray(updatedSelectedUsersArray: [User]) {
+    func reloadSerchUserTableview() {
+        DispatchQueue.main.async { self.serchUserTableview.reloadData() }
+    }
+    
+    func reloadSelectedUserCollectionView(updatedSelectedUsersArray: [User]) {
         self.selectedUsersArray = updatedSelectedUsersArray
         
         DispatchQueue.main.async {
@@ -126,6 +128,14 @@ extension CreateChatRoomViewController: CreateChatRoomViewPresenterOutput {
     func dismissCreateChatRoomVC() {
         DispatchQueue.main.async {
             self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    func clearSearchUserTableView() {
+        self.searchedUsersArray.removeAll()
+        
+        DispatchQueue.main.async {
+            self.serchUserTableview.reloadData()
         }
     }
 }
@@ -208,9 +218,10 @@ extension CreateChatRoomViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchBarText = searchBar.text else { return }
+        guard !searchBarText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
         guard self.userNameSearchBar.isFirstResponder else { return }
         self.userNameSearchBar.resignFirstResponder()
         
-        print("searchText = \(searchBarText)")
+        self.presenter.didSearchBarSearchButtonClicked(searchText: searchBarText)
     }
 }

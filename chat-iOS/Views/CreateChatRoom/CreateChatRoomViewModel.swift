@@ -9,6 +9,7 @@ protocol CreateChatRoomModelProtocol {
     var presenter: CreateChatRoomModelOutput! { get set }
     
     func isContaintsUser(user: User) -> Bool
+    func searchUser(searchText: String)
     func removeSelectedUserFromSelectedUserArray(user: User)
     func appendUserToSelectedUserArray(user: User)
     func removeSelectedUsersArray(index: Int) -> [User]
@@ -20,11 +21,18 @@ protocol CreateChatRoomModelOutput {
     func successAppendUser(updatedSelectedUsersArray: [User])
     
     func successCreateChatRoom()
+    
+    func successSearchUser(searchedUsers: [User])
 }
 
 final class CreateChatRoomModel: CreateChatRoomModelProtocol {
     var presenter: CreateChatRoomModelOutput!
     private var selectedUsersArray: [User] = Array()
+    
+    //TODO:- firestoreから検索すること
+    func searchUser(searchText: String) {
+        self.presenter.successSearchUser(searchedUsers: [User(id: "234", displayName: "Ox", profileImageURL: "http")])
+    }
     
     func isContaintsUser(user: User) -> Bool {
         if self.selectedUsersArray.filter({ $0.id == user.id ?? "" }).isEmpty { return false }

@@ -13,13 +13,17 @@ protocol CreateChatRoomViewPresenterProtocol {
     
     func didTapStopCreateRoomButton()
     func didTapCreateRoomutton(selectedUsersArray: [User])
+    
+    func didSearchBarSearchButtonClicked(searchText: String)
 }
 
 protocol CreateChatRoomViewPresenterOutput {
-    func reloadSerchUserTableview_updateSelectedUsersArray(updatedSelectedUsersArray: [User])
-    func reloadSelectedUserCollectionView_updateSelectedUsersArray(updatedSelectedUsersArray: [User])
+    func reloadSerchUserTableview(updatedSearchedUsersArray: [User])
+    func reloadSerchUserTableview()
+    func reloadSelectedUserCollectionView(updatedSelectedUsersArray: [User])
     func hiddenSelectedUsersCollectionView()
     func dismissCreateChatRoomVC()
+    func clearSearchUserTableView()
 }
 
 final class CreateChatRoomViewPresenter: CreateChatRoomViewPresenterProtocol, CreateChatRoomModelOutput {
@@ -41,8 +45,8 @@ final class CreateChatRoomViewPresenter: CreateChatRoomViewPresenterProtocol, Cr
     
     func didTapSelectedUserCollectionViewCellDeleteUserButton(index: Int) {
         let updatedSelectedUsersArray = self.model.removeSelectedUsersArray(index: index)
-        self.view.reloadSerchUserTableview_updateSelectedUsersArray(updatedSelectedUsersArray: updatedSelectedUsersArray)
-        self.view.reloadSelectedUserCollectionView_updateSelectedUsersArray(updatedSelectedUsersArray: updatedSelectedUsersArray)
+        
+        self.view.reloadSelectedUserCollectionView(updatedSelectedUsersArray: updatedSelectedUsersArray)
         if updatedSelectedUsersArray.isEmpty { self.view.hiddenSelectedUsersCollectionView()}
     }
     
@@ -56,15 +60,24 @@ final class CreateChatRoomViewPresenter: CreateChatRoomViewPresenterProtocol, Cr
         self.model.createChatRoom(roomUser: selectedUsersArray)
     }
     
+    func didSearchBarSearchButtonClicked(searchText: String) {
+        self.view.clearSearchUserTableView()
+        self.model.searchUser(searchText: searchText)
+    }
+    
+    func successSearchUser(searchedUsers: [User]) {
+        self.view.reloadSerchUserTableview(updatedSearchedUsersArray: searchedUsers)
+    }
+    
     func successRemoveSelectedUser(updatedSelectedUsersArray: [User]) {
-        self.view.reloadSerchUserTableview_updateSelectedUsersArray(updatedSelectedUsersArray: updatedSelectedUsersArray)
-        self.view.reloadSelectedUserCollectionView_updateSelectedUsersArray(updatedSelectedUsersArray: updatedSelectedUsersArray)
+        self.view.reloadSelectedUserCollectionView(updatedSelectedUsersArray: updatedSelectedUsersArray)
+        self.view.reloadSerchUserTableview()
         if updatedSelectedUsersArray.isEmpty { self.view.hiddenSelectedUsersCollectionView()}
     }
     
     func successAppendUser(updatedSelectedUsersArray: [User]) {
-        self.view.reloadSerchUserTableview_updateSelectedUsersArray(updatedSelectedUsersArray: updatedSelectedUsersArray)
-        self.view.reloadSelectedUserCollectionView_updateSelectedUsersArray(updatedSelectedUsersArray: updatedSelectedUsersArray)
+        self.view.reloadSelectedUserCollectionView(updatedSelectedUsersArray: updatedSelectedUsersArray)
+        self.view.reloadSerchUserTableview()
     }
     
     func successCreateChatRoom() {
