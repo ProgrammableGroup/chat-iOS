@@ -10,6 +10,9 @@ import UIKit
 final class CreateChatRoomViewController: UIViewController {
     private var presenter: CreateChatRoomViewPresenterProtocol!
     
+    @IBOutlet weak var serchUserTableview: UITableView!
+    @IBOutlet weak var selectedUserCollectionView: UICollectionView!
+        
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -23,4 +26,3 @@ final class CreateChatRoomViewController: UIViewController {
 extension CreateChatRoomViewController: CreateChatRoomViewPresenterOutput {
     
 }
-
