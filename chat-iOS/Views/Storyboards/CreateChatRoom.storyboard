@@ -21,7 +21,7 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="72" id="7Yh-NI-GFl" customClass="SerchUserTableviewCell" customModule="chat_iOS" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SerchUserTableviewCell" rowHeight="72" id="7Yh-NI-GFl" customClass="SerchUserTableviewCell" customModule="chat_iOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="72"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7Yh-NI-GFl" id="DAn-uH-Kjr" customClass="SerchUserTableviewCell" customModule="chat_iOS" customModuleProvider="target">
@@ -90,7 +90,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="umP-Mw-QxN" customClass="SelectedUserCollectionViewCell" customModule="chat_iOS" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SelectedUserCollectionViewCell" id="umP-Mw-QxN" customClass="SelectedUserCollectionViewCell" customModule="chat_iOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="10" width="90" height="90"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="tqK-oP-DPh">
@@ -164,6 +164,7 @@
                     <connections>
                         <outlet property="selectedUserCollectionView" destination="6qA-B1-bEm" id="k4t-8m-Isq"/>
                         <outlet property="serchUserTableview" destination="5CD-Tv-5AX" id="6iO-Fo-Ksg"/>
+                        <outlet property="userNameSearchBar" destination="8ZW-hf-5Mh" id="CAt-Nc-he9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V3s-g3-ahj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
