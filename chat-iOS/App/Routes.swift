@@ -12,7 +12,7 @@ struct Routes {
         //TODO:- ログインをしてるかの処理を書くこと
         let isAuthenticated = true
         
-        if isAuthenticated { return MainTabBarViewBuilder.create() }
+        if isAuthenticated { return CreateChatRoomViewBuilder.create() }
         return UINavigationController(rootViewController: AuthTopViewBuilder.create())
     }
 }

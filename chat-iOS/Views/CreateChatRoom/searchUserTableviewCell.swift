@@ -1,5 +1,5 @@
 //
-//  serchUserTableviewCell.swift
+//  searchUserTableviewCell.swift
 //  chat-iOS
 //
 //  Created by jun on 2020/07/18.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SerchUserTableviewCell: UITableViewCell {
+class SearchUserTableviewCell: UITableViewCell {
     
     @IBOutlet weak var radioImageView: UIImageView!
     @IBOutlet weak var profileImageView: UIImageView!
