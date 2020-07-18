@@ -78,43 +78,43 @@
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="6qA-B1-bEm">
-                                <rect key="frame" x="0.0" y="752" width="414" height="110"/>
+                                <rect key="frame" x="0.0" y="762" width="414" height="100"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="110" id="tcc-fV-RE3"/>
+                                    <constraint firstAttribute="height" constant="100" id="tcc-fV-RE3"/>
                                 </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="cEF-ht-Inc">
-                                    <size key="itemSize" width="90" height="90"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="2" minimumInteritemSpacing="2" id="cEF-ht-Inc">
+                                    <size key="itemSize" width="85" height="90"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" reuseIdentifier="SelectedUserCollectionViewCell" id="umP-Mw-QxN" customClass="SelectedUserCollectionViewCell" customModule="chat_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" reuseIdentifier="SelectedUserCollectionViewCell" id="umP-Mw-QxN" customClass="SelectedUserCollectionViewCell" customModule="chat_iOS" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="85" height="90"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="tqK-oP-DPh">
-                                            <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="85" height="90"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QUM-A5-x83">
-                                                    <rect key="frame" x="20" y="69" width="50" height="13"/>
+                                                    <rect key="frame" x="20" y="69" width="45" height="13"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="13" id="Rzo-3d-dW1"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="11"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="12"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ii4-vN-Azn">
-                                                    <rect key="frame" x="20" y="11" width="50" height="50"/>
+                                                    <rect key="frame" x="17.5" y="11" width="50" height="50"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="ORa-81-fbp"/>
                                                         <constraint firstAttribute="height" constant="50" id="blQ-up-c4F"/>
                                                     </constraints>
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G0Q-vf-oq3">
-                                                    <rect key="frame" x="57" y="8" width="25" height="25"/>
+                                                    <rect key="frame" x="52" y="8" width="25" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="25" id="roJ-of-Y96"/>
                                                         <constraint firstAttribute="height" constant="25" id="tW2-u4-Hv0"/>
@@ -129,14 +129,14 @@
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="G0Q-vf-oq3" secondAttribute="trailing" constant="8" id="0Cv-mg-Lug"/>
                                                 <constraint firstItem="Ii4-vN-Azn" firstAttribute="top" secondItem="tqK-oP-DPh" secondAttribute="top" constant="11" id="2KD-RZ-zfl"/>
-                                                <constraint firstItem="Ii4-vN-Azn" firstAttribute="leading" secondItem="tqK-oP-DPh" secondAttribute="leading" constant="20" id="48U-ce-ibW"/>
                                                 <constraint firstItem="G0Q-vf-oq3" firstAttribute="top" secondItem="tqK-oP-DPh" secondAttribute="top" constant="8" id="KAD-ZY-hjv"/>
                                                 <constraint firstItem="QUM-A5-x83" firstAttribute="leading" secondItem="tqK-oP-DPh" secondAttribute="leading" constant="20" id="LdZ-8L-gLE"/>
                                                 <constraint firstAttribute="trailing" secondItem="QUM-A5-x83" secondAttribute="trailing" constant="20" id="g0K-tF-XhA"/>
                                                 <constraint firstAttribute="bottom" secondItem="QUM-A5-x83" secondAttribute="bottom" constant="8" id="hXn-Dy-ZUQ"/>
+                                                <constraint firstItem="Ii4-vN-Azn" firstAttribute="centerX" secondItem="tqK-oP-DPh" secondAttribute="centerX" id="sXs-ot-Jpp"/>
                                             </constraints>
                                         </collectionViewCellContentView>
-                                        <size key="customSize" width="90" height="90"/>
+                                        <size key="customSize" width="85" height="90"/>
                                         <connections>
                                             <outlet property="deleteUserButton" destination="G0Q-vf-oq3" id="6X1-UW-vdy"/>
                                             <outlet property="profileImageView" destination="Ii4-vN-Azn" id="v3C-Ak-zta"/>
