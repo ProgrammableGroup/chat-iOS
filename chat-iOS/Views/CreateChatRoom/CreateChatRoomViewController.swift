@@ -47,6 +47,10 @@ final class CreateChatRoomViewController: UIViewController {
         self.selectedUserCollectionView.dataSource = self
     }
     
+    @objc func tapSelectedUserCollectionViewCellDeleteUserButton(_ button: UIButton) {
+        self.presenter.didTapSelectedUserCollectionViewCellDeleteUserButton(index: button.tag)
+    }
+    
     func inject(with presenter: CreateChatRoomViewPresenterProtocol) {
         self.presenter = presenter
         self.presenter.view = self
@@ -118,6 +122,9 @@ extension CreateChatRoomViewController: UICollectionViewDelegate, UICollectionVi
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: selectedUsersCellID, for: indexPath) as! SelectedUserCollectionViewCell
         
         cell.userNameLabel.text = self.selectedUsersArray[indexPath.item].displayName
+        
+        cell.deleteUserButton.tag = indexPath.item
+        cell.deleteUserButton.addTarget(self, action: #selector(tapSelectedUserCollectionViewCellDeleteUserButton(_:)), for: .touchUpInside)
         
         //TODO:Firestoreから取得した後で表示し直すこと
         if #available(iOS 13.0, *) {

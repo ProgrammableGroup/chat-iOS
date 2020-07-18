@@ -9,6 +9,7 @@ protocol CreateChatRoomViewPresenterProtocol {
     var view: CreateChatRoomViewPresenterOutput! { get set }
     
     func didSelectedSerchUserTableview(selectedUser: User)
+    func didTapSelectedUserCollectionViewCellDeleteUserButton(index: Int)
 }
 
 protocol CreateChatRoomViewPresenterOutput {
@@ -32,6 +33,13 @@ final class CreateChatRoomViewPresenter: CreateChatRoomViewPresenterProtocol, Cr
             return
         }
         self.model.appendUserToSelectedUserArray(user: selectedUser)
+    }
+    
+    func didTapSelectedUserCollectionViewCellDeleteUserButton(index: Int) {
+        let updatedSelectedUsersArray = self.model.removeSelectedUsersArray(index: index)
+        self.view.reloadSerchUserTableview_updateSelectedUsersArray(updatedSelectedUsersArray: updatedSelectedUsersArray)
+        self.view.reloadSelectedUserCollectionView_updateSelectedUsersArray(updatedSelectedUsersArray: updatedSelectedUsersArray)
+        if updatedSelectedUsersArray.isEmpty { self.view.hiddenSelectedUsersCollectionView()}
     }
     
     func successRemoveSelectedUser(updatedSelectedUsersArray: [User]) {

@@ -11,6 +11,7 @@ protocol CreateChatRoomModelProtocol {
     func isContaintsUser(user: User) -> Bool
     func removeSelectedUserFromSelectedUserArray(user: User)
     func appendUserToSelectedUserArray(user: User)
+    func removeSelectedUsersArray(index: Int) -> [User]
 }
 
 protocol CreateChatRoomModelOutput {
@@ -37,5 +38,10 @@ final class CreateChatRoomModel: CreateChatRoomModelProtocol {
         self.selectedUsersArray.append(user)
         
         self.presenter.successAppendUser(updatedSelectedUsersArray: self.selectedUsersArray)
+    }
+    
+    func removeSelectedUsersArray(index: Int) -> [User] {
+        self.selectedUsersArray.remove(at: index)
+        return self.selectedUsersArray
     }
 }
