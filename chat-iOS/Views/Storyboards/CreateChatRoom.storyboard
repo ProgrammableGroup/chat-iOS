@@ -163,6 +163,7 @@
                     </view>
                     <connections>
                         <outlet property="selectedUserCollectionView" destination="6qA-B1-bEm" id="k4t-8m-Isq"/>
+                        <outlet property="selectedUserCollectionViewBottomsConstraints" destination="8cW-rp-9C0" id="NP3-ts-pgK"/>
                         <outlet property="serchUserTableview" destination="5CD-Tv-5AX" id="6iO-Fo-Ksg"/>
                         <outlet property="userNameSearchBar" destination="8ZW-hf-5Mh" id="CAt-Nc-he9"/>
                     </connections>

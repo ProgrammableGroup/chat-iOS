@@ -14,6 +14,8 @@ final class CreateChatRoomViewController: UIViewController {
     @IBOutlet weak var serchUserTableview: UITableView!
     @IBOutlet weak var selectedUserCollectionView: UICollectionView!
     
+    @IBOutlet weak var selectedUserCollectionViewBottomsConstraints: NSLayoutConstraint!
+    
     var searchedUsersArray: [User] = [User(id: "1212", displayName: "Bob", profileImageURL: "http..."), User(id: "1324", displayName: "Joe", profileImageURL: "http...")]
     var selectedUsersArray: [User] = Array()
     
@@ -26,6 +28,7 @@ final class CreateChatRoomViewController: UIViewController {
         self.setupUserSearchBar()
         self.setupSerchUserTableview()
         self.setupSelectedUserCollectionView()
+        self.setupNotificationCenter()
     }
     
     private func setupUserSearchBar() {
@@ -45,6 +48,28 @@ final class CreateChatRoomViewController: UIViewController {
         self.selectedUserCollectionView.collectionViewLayout.invalidateLayout()
         self.selectedUserCollectionView.delegate = self
         self.selectedUserCollectionView.dataSource = self
+    }
+    
+    func setupNotificationCenter() {
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShowNotification(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHideNotification(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    /// キーボードが登場した時の処理
+    @objc func keyboardWillShowNotification(notification: NSNotification) {
+        guard let userInfo = notification.userInfo else { return }
+        guard let keyboard = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        print("登場")
+        self.selectedUserCollectionViewBottomsConstraints.constant = -keyboard.cgRectValue.height + self.view.safeAreaInsets.bottom
+        UIView.animate(withDuration: 1.0, animations: { self.view.layoutIfNeeded() })
+    }
+    
+    /// キーボードが隠れた時の処理
+    @objc func keyboardWillHideNotification(notification: NSNotification) {
+        guard notification.userInfo != nil else { return }
+        print("バイバイ")
+        self.selectedUserCollectionViewBottomsConstraints.constant = 0
+        UIView.animate(withDuration: 1.0, animations: { self.view.layoutIfNeeded() })
     }
     
     @objc func tapSelectedUserCollectionViewCellDeleteUserButton(_ button: UIButton) {
@@ -148,7 +173,6 @@ extension CreateChatRoomViewController: UICollectionViewDelegate, UICollectionVi
         return UIEdgeInsets(top: 0.0, left: 10.0, bottom: 0.0, right: 10)
     }
 }
-
 
 extension CreateChatRoomViewController: UISearchBarDelegate {
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
