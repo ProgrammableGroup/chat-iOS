@@ -14,8 +14,11 @@ final class CreateChatRoomViewController: UIViewController {
     @IBOutlet weak var serchUserTableview: UITableView!
     @IBOutlet weak var selectedUserCollectionView: UICollectionView!
     
-    var searchedUsers: [User] = Array()
+    var searchedUsers: [User] = [User(id: "1212", displayName: "Bob", profileImageURL: "http..."), User(id: "1212", displayName: "Joe", profileImageURL: "http...")]
     var selectedUsers: [User] = Array()
+    
+    private let searchedUsersCellID = "SearchUserTableviewCell"
+    private let selectedUsersCellID = "SelectedUserCollectionViewCell"
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,10 +60,18 @@ extension CreateChatRoomViewController: UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        guard let cell = self.serchUserTableview.dequeueReusableCell(withIdentifier: self.searchedUsersCellID, for: indexPath)
+                         as? SearchUserTableviewCell else { return UITableViewCell() }
+        
+        cell.userNameLabel.text = self.searchedUsers[indexPath.item].displayName
+        
+        return cell
     }
     
-
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.serchUserTableview.deselectRow(at: indexPath, animated: true)
+    }
+  
 }
 
 extension CreateChatRoomViewController: UISearchBarDelegate {

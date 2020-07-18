@@ -1,5 +1,5 @@
 //
-//  searchUserTableviewCell.swift
+//  SearchUserTableviewCell.swift
 //  chat-iOS
 //
 //  Created by jun on 2020/07/18.
