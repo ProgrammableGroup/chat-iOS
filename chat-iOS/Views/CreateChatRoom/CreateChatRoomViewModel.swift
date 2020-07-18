@@ -5,6 +5,8 @@
 //  Created by jun on 2020/07/18.
 //
 
+import Firebase
+
 protocol CreateChatRoomModelProtocol {
     var presenter: CreateChatRoomModelOutput! { get set }
     
@@ -27,11 +29,33 @@ protocol CreateChatRoomModelOutput {
 
 final class CreateChatRoomModel: CreateChatRoomModelProtocol {
     var presenter: CreateChatRoomModelOutput!
+    private var firestore: Firestore!
     private var selectedUsersArray: [User] = Array()
     
-    //TODO:- firestoreから検索すること
+    init() {
+        self.firestore = Firestore.firestore()
+        let settings = FirestoreSettings()
+        self.firestore.settings = settings
+    }
+    
     func searchUser(searchText: String) {
-        self.presenter.successSearchUser(searchedUsers: [User(id: "234", displayName: "Ox", profileImageURL: "http")])
+        self.firestore.collection("message/v1/users").whereField("displayName", isEqualTo: searchText).getDocuments { (documentSnapshot, error) in
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let documents = documentSnapshot?.documents else {
+                print("The document doesn't exist.")
+                return
+            }
+            
+            let searchedUsers = documents.compactMap { queryDocumentSnapshot -> User? in
+                return try? queryDocumentSnapshot.data(as: User.self)
+            }
+            
+            self.presenter.successSearchUser(searchedUsers: searchedUsers)
+        }
     }
     
     func isContaintsUser(user: User) -> Bool {
