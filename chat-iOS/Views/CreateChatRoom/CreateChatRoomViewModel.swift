@@ -12,11 +12,14 @@ protocol CreateChatRoomModelProtocol {
     func removeSelectedUserFromSelectedUserArray(user: User)
     func appendUserToSelectedUserArray(user: User)
     func removeSelectedUsersArray(index: Int) -> [User]
+    func createChatRoom(roomUser: [User])
 }
 
 protocol CreateChatRoomModelOutput {
     func successRemoveSelectedUser(updatedSelectedUsersArray: [User])
     func successAppendUser(updatedSelectedUsersArray: [User])
+    
+    func successCreateChatRoom()
 }
 
 final class CreateChatRoomModel: CreateChatRoomModelProtocol {
@@ -43,5 +46,10 @@ final class CreateChatRoomModel: CreateChatRoomModelProtocol {
     func removeSelectedUsersArray(index: Int) -> [User] {
         self.selectedUsersArray.remove(at: index)
         return self.selectedUsersArray
+    }
+    
+    //TODO:- Firesotreに保存する
+    func createChatRoom(roomUser: [User]) {
+        self.presenter.successCreateChatRoom()
     }
 }

@@ -25,10 +25,19 @@ final class CreateChatRoomViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.setupNavigationItem()
         self.setupUserSearchBar()
         self.setupSerchUserTableview()
         self.setupSelectedUserCollectionView()
         self.setupNotificationCenter()
+    }
+    
+    private func setupNavigationItem() {
+        self.navigationItem.title = "Choose friends"
+        let stopItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(tapStopCreateRoomButton))
+        self.navigationItem.leftBarButtonItem = stopItem
+        let saveItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(tapCreateRoomutton))
+        self.navigationItem.rightBarButtonItem = saveItem
     }
     
     private func setupUserSearchBar() {
@@ -72,6 +81,14 @@ final class CreateChatRoomViewController: UIViewController {
         UIView.animate(withDuration: 1.0, animations: { self.view.layoutIfNeeded() })
     }
     
+    @objc func tapStopCreateRoomButton() {
+        self.presenter.didTapStopCreateRoomButton()
+    }
+
+    @objc func tapCreateRoomutton() {
+        self.presenter.didTapCreateRoomutton(selectedUsersArray: self.selectedUsersArray)
+    }
+    
     @objc func tapSelectedUserCollectionViewCellDeleteUserButton(_ button: UIButton) {
         self.presenter.didTapSelectedUserCollectionViewCellDeleteUserButton(index: button.tag)
     }
@@ -90,6 +107,7 @@ extension CreateChatRoomViewController: CreateChatRoomViewPresenterOutput {
             self.serchUserTableview.reloadData()
         }
     }
+    
     func reloadSelectedUserCollectionView_updateSelectedUsersArray(updatedSelectedUsersArray: [User]) {
         self.selectedUsersArray = updatedSelectedUsersArray
         
@@ -98,9 +116,16 @@ extension CreateChatRoomViewController: CreateChatRoomViewPresenterOutput {
             self.selectedUserCollectionView.reloadData()
         }
     }
+    
     func hiddenSelectedUsersCollectionView() {
         DispatchQueue.main.async {
             self.selectedUserCollectionView.isHidden = true
+        }
+    }
+    
+    func dismissCreateChatRoomVC() {
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
         }
     }
 }

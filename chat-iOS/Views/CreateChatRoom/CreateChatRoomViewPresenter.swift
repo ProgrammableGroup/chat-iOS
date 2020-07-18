@@ -10,12 +10,16 @@ protocol CreateChatRoomViewPresenterProtocol {
     
     func didSelectedSerchUserTableview(selectedUser: User)
     func didTapSelectedUserCollectionViewCellDeleteUserButton(index: Int)
+    
+    func didTapStopCreateRoomButton()
+    func didTapCreateRoomutton(selectedUsersArray: [User])
 }
 
 protocol CreateChatRoomViewPresenterOutput {
     func reloadSerchUserTableview_updateSelectedUsersArray(updatedSelectedUsersArray: [User])
     func reloadSelectedUserCollectionView_updateSelectedUsersArray(updatedSelectedUsersArray: [User])
     func hiddenSelectedUsersCollectionView()
+    func dismissCreateChatRoomVC()
 }
 
 final class CreateChatRoomViewPresenter: CreateChatRoomViewPresenterProtocol, CreateChatRoomModelOutput {
@@ -42,6 +46,16 @@ final class CreateChatRoomViewPresenter: CreateChatRoomViewPresenterProtocol, Cr
         if updatedSelectedUsersArray.isEmpty { self.view.hiddenSelectedUsersCollectionView()}
     }
     
+    func didTapStopCreateRoomButton() {
+        self.view.dismissCreateChatRoomVC()
+    }
+    
+    func didTapCreateRoomutton(selectedUsersArray: [User]) {
+        guard !selectedUsersArray.isEmpty else { return }
+        
+        self.model.createChatRoom(roomUser: selectedUsersArray)
+    }
+    
     func successRemoveSelectedUser(updatedSelectedUsersArray: [User]) {
         self.view.reloadSerchUserTableview_updateSelectedUsersArray(updatedSelectedUsersArray: updatedSelectedUsersArray)
         self.view.reloadSelectedUserCollectionView_updateSelectedUsersArray(updatedSelectedUsersArray: updatedSelectedUsersArray)
@@ -51,5 +65,9 @@ final class CreateChatRoomViewPresenter: CreateChatRoomViewPresenterProtocol, Cr
     func successAppendUser(updatedSelectedUsersArray: [User]) {
         self.view.reloadSerchUserTableview_updateSelectedUsersArray(updatedSelectedUsersArray: updatedSelectedUsersArray)
         self.view.reloadSelectedUserCollectionView_updateSelectedUsersArray(updatedSelectedUsersArray: updatedSelectedUsersArray)
+    }
+    
+    func successCreateChatRoom() {
+        self.view.dismissCreateChatRoomVC()
     }
 }
