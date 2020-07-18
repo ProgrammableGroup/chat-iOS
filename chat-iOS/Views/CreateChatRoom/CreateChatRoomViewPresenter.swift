@@ -47,6 +47,7 @@ final class CreateChatRoomViewPresenter: CreateChatRoomViewPresenterProtocol, Cr
         let updatedSelectedUsersArray = self.model.removeSelectedUsersArray(index: index)
         
         self.view.reloadSelectedUserCollectionView(updatedSelectedUsersArray: updatedSelectedUsersArray)
+        self.view.reloadSerchUserTableview()
         if updatedSelectedUsersArray.isEmpty { self.view.hiddenSelectedUsersCollectionView()}
     }
     
