@@ -37,6 +37,7 @@ class SearchUserTableviewCell: UITableViewCell {
     }
     
     public func changeFillImageRadioImageView() {
+        //TODO:- iOS12以下の画像を用意すること
         if #available(iOS 13.0, *) {
             self.radioImageView.image = UIImage(systemName: "checkmark.seal.fill")
             self.radioImageView.tintColor = .systemGreen
@@ -46,6 +47,7 @@ class SearchUserTableviewCell: UITableViewCell {
     }
     
     public func changeNotFillImageRadioImageView() {
+        //TODO:- iOS12以下の画像を用意すること
         if #available(iOS 13.0, *) {
             self.radioImageView.image = UIImage(systemName: "checkmark.seal")
             self.radioImageView.tintColor = .systemGray
