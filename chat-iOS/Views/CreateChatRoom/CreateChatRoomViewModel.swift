@@ -38,6 +38,8 @@ final class CreateChatRoomModel: CreateChatRoomModelProtocol {
         self.firestore.settings = settings
     }
     
+    /// ユーザをFirestoreから検索する関数
+    /// - Parameter searchText: 検索するユーザ名
     func searchUser(searchText: String) {
         self.firestore.collection("message/v1/users").whereField("displayName", isEqualTo: searchText).getDocuments { [weak self] (documentSnapshot, error) in
             if let error = error {
@@ -58,6 +60,9 @@ final class CreateChatRoomModel: CreateChatRoomModelProtocol {
         }
     }
     
+    /// ユーザが既に選択されているかを返す
+    /// - Parameter user: 検索するユーザ
+    /// - Returns: 検索結果
     func isContaintsUser(user: User) -> Bool {
         if self.selectedUsersArray.filter({ $0.id == user.id ?? "" }).isEmpty { return false }
         return true
@@ -75,6 +80,9 @@ final class CreateChatRoomModel: CreateChatRoomModelProtocol {
         self.presenter.successAppendUser(updatedSelectedUsersArray: self.selectedUsersArray)
     }
     
+    /// `selectedUsersArray`からあるインデックスを削除する
+    /// - Parameter index: 削除する配列番号
+    /// - Returns: 削除した後の`selectedUsersArray`
     func removeSelectedUsersArray(index: Int) -> [User] {
         self.selectedUsersArray.remove(at: index)
         return self.selectedUsersArray

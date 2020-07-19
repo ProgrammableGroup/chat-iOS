@@ -16,7 +16,7 @@ final class CreateChatRoomViewController: UIViewController {
     
     @IBOutlet weak var selectedUserCollectionViewBottomsConstraints: NSLayoutConstraint!
     
-    var searchedUsersArray: [User] = [User(id: "1212", displayName: "Bob", profileImageURL: "http..."), User(id: "1324", displayName: "Joe", profileImageURL: "http...")]
+    var searchedUsersArray: [User] = Array()
     var selectedUsersArray: [User] = Array()
     
     var activityIndicator = UIActivityIndicatorView()
@@ -99,6 +99,8 @@ final class CreateChatRoomViewController: UIViewController {
         self.presenter.didTapCreateRoomutton(selectedUsersArray: self.selectedUsersArray)
     }
     
+    /// `selectedUserCollectionView`にあるバツボタンタップされたときに呼ばれる関数。
+    /// - Parameter button: ボタンの`tag`でどのindexを消すかがわかる
     @objc func tapSelectedUserCollectionViewCellDeleteUserButton(_ button: UIButton) {
         self.presenter.didTapSelectedUserCollectionViewCellDeleteUserButton(index: button.tag)
     }
@@ -246,6 +248,8 @@ extension CreateChatRoomViewController: UISearchBarDelegate {
         self.userNameSearchBar.resignFirstResponder()
     }
     
+    /// 検索ボタンがタップされたときに呼ばれる関数
+    /// - Parameter searchBar: サーチバー
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchBarText = searchBar.text else { return }
         guard !searchBarText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
