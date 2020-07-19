@@ -124,21 +124,33 @@ extension CreateChatRoomViewController: CreateChatRoomViewPresenterOutput {
         self.selectedUsersArray = updatedSelectedUsersArray
         
         DispatchQueue.main.async {
-            if self.selectedUserCollectionView.isHidden { self.selectedUserCollectionView.isHidden = false }
+            if self.selectedUserCollectionView.isHidden {
+                self.selectedUserCollectionView.alpha = 0
+                self.selectedUserCollectionView.isHidden = false
+                UIView.animate(
+                    withDuration: 0.15,
+                    animations: { self.selectedUserCollectionView.alpha = 1 },
+                    completion: nil)
+            }
             self.selectedUserCollectionView.reloadData()
         }
     }
     
     func hiddenSelectedUsersCollectionView() {
         DispatchQueue.main.async {
-            self.selectedUserCollectionView.isHidden = true
+            UIView.animate(
+                withDuration: 0.25,
+                animations: { self.selectedUserCollectionView.alpha = 0 },
+                completion: { _ in
+                    self.selectedUserCollectionView.isHidden = true
+                    self.selectedUserCollectionView.alpha = 1
+                }
+            )
         }
     }
     
     func dismissCreateChatRoomVC() {
-        DispatchQueue.main.async {
-            self.dismiss(animated: true, completion: nil)
-        }
+        DispatchQueue.main.async { self.dismiss(animated: true, completion: nil) }
     }
     
     func clearSearchUserTableView() {
