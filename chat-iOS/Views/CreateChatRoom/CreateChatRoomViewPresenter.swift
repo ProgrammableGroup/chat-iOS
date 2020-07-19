@@ -17,7 +17,7 @@ protocol CreateChatRoomViewPresenterProtocol {
     func didSearchBarSearchButtonClicked(searchText: String)
 }
 
-protocol CreateChatRoomViewPresenterOutput {
+protocol CreateChatRoomViewPresenterOutput: class {
     func reloadSerchUserTableview(updatedSearchedUsersArray: [User])
     func reloadSerchUserTableview()
     func reloadSelectedUserCollectionView(updatedSelectedUsersArray: [User])
@@ -31,7 +31,7 @@ protocol CreateChatRoomViewPresenterOutput {
 }
 
 final class CreateChatRoomViewPresenter: CreateChatRoomViewPresenterProtocol, CreateChatRoomModelOutput {
-    var view: CreateChatRoomViewPresenterOutput!
+    weak var view: CreateChatRoomViewPresenterOutput!
     private var model: CreateChatRoomModelProtocol
     
     init(model: CreateChatRoomModelProtocol) {

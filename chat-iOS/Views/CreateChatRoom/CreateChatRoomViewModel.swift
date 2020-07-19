@@ -18,7 +18,7 @@ protocol CreateChatRoomModelProtocol {
     func createChatRoom(roomUser: [User])
 }
 
-protocol CreateChatRoomModelOutput {
+protocol CreateChatRoomModelOutput: class {
     func successRemoveSelectedUser(updatedSelectedUsersArray: [User])
     func successAppendUser(updatedSelectedUsersArray: [User])
     
@@ -28,7 +28,7 @@ protocol CreateChatRoomModelOutput {
 }
 
 final class CreateChatRoomModel: CreateChatRoomModelProtocol {
-    var presenter: CreateChatRoomModelOutput!
+    weak var presenter: CreateChatRoomModelOutput!
     private var firestore: Firestore!
     private var selectedUsersArray: [User] = Array()
     
@@ -39,7 +39,7 @@ final class CreateChatRoomModel: CreateChatRoomModelProtocol {
     }
     
     func searchUser(searchText: String) {
-        self.firestore.collection("message/v1/users").whereField("displayName", isEqualTo: searchText).getDocuments { (documentSnapshot, error) in
+        self.firestore.collection("message/v1/users").whereField("displayName", isEqualTo: searchText).getDocuments { [weak self] (documentSnapshot, error) in
             if let error = error {
                 print("Error: \(error.localizedDescription)")
                 return
@@ -54,7 +54,7 @@ final class CreateChatRoomModel: CreateChatRoomModelProtocol {
                 return try? queryDocumentSnapshot.data(as: User.self)
             }
             
-            self.presenter.successSearchUser(searchedUsers: searchedUsers)
+            self?.presenter.successSearchUser(searchedUsers: searchedUsers)
         }
     }
     
