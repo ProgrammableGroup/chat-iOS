@@ -18,6 +18,8 @@ protocol EditProfileModelOutput {
 final class EditProfileModel: EditProfileModelProtocol {
     var presenter: EditProfileModelOutput!
     
+    //TODO:- セーブする処理を書くこと
+    //MARK:- ここでセーブする処理を書く
     func saveProfile() {
 //        let storage = Storage.storage().reference(forURL: "gs://mapapp6-bf5a1.appspot.com")
 //        let imageRef = storage.child("profileImage").child("\(user.uid).jpeg")
@@ -37,9 +39,6 @@ final class EditProfileModel: EditProfileModelProtocol {
 //                return  //これより下にはいかないreturn
 //            }
 //        }
-        
-        
-        
     }
 }
 

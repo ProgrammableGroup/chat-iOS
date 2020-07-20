@@ -34,6 +34,9 @@ final class UserProfileViewPresenter: UserProfileViewPresenterProtocol, UserProf
     func successFetchUser(user: User) {
         self.view.setUserName(userName: user.displayName)
     }
+    
+    /// 画像取得成功した時呼ばれる関数
+    /// - Parameter imageData:  profile画像のデータ
     func successFetchImageData(imageData: Data) {
         self.view.setUserProfileImage(imageData: imageData)
     }
