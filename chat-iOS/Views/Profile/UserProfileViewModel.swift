@@ -13,6 +13,7 @@ protocol UserProfileViewModelProtocol {
 
 protocol UserProfileViewModelOutput {
     func successFetchUser(user: User)
+    func successFetchImageData(imageData: Data)
 }
 
 final class UserProfileViewModel: UserProfileViewModelProtocol {
@@ -40,6 +41,7 @@ final class UserProfileViewModel: UserProfileViewModelProtocol {
             do {
                 let user = try Firestore.Decoder().decode(User.self, from: document.data()!)
                 self.presenter.successFetchUser(user: user)
+                self.downloadProfile(downLoadURL: user.profileImageURL ?? "")
             } catch {
                 fatalError()
             }
@@ -47,5 +49,24 @@ final class UserProfileViewModel: UserProfileViewModelProtocol {
             
         }
         
+    }
+    
+    private func downloadProfile(downLoadURL: String) {
+        let httpsReference = Storage.storage().reference(forURL: downLoadURL)
+        httpsReference.getData(maxSize: 1 * 512 * 512) { data, error in
+            if let error = error {
+                print("プロ画取得エラー")
+                print(error.localizedDescription)
+                return
+            }
+            
+            guard let data = data else {
+                print("プロ画取得エラー")
+                return
+            }
+            
+            print("プロ画取得成功!")
+            self.presenter.successFetchImageData(imageData: data)
+        }
     }
 }

@@ -4,6 +4,7 @@
 //
 //  Created by 倉谷　明希 on 2020/06/22.
 //
+import Foundation
 
 protocol UserProfileViewPresenterProtocol {
     var view: UserProfileViewPresenterOutput! { get set }
@@ -13,6 +14,7 @@ protocol UserProfileViewPresenterProtocol {
 
 protocol UserProfileViewPresenterOutput {
     func setUserName(userName: String)
+    func setUserProfileImage(imageData: Data)
     func presentEditProfileViewController()
 }
 
@@ -31,6 +33,9 @@ final class UserProfileViewPresenter: UserProfileViewPresenterProtocol, UserProf
     }
     func successFetchUser(user: User) {
         self.view.setUserName(userName: user.displayName)
+    }
+    func successFetchImageData(imageData: Data) {
+        self.view.setUserProfileImage(imageData: imageData)
     }
     func didTapEditProfileButton() {
         self.view.presentEditProfileViewController()

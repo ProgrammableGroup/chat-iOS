@@ -17,6 +17,7 @@ final class UserProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         editProfileButton.layer.cornerRadius = 10.0
+        profileImageView.layer.cornerRadius = profileImageView.frame.height / 2
         self.presenter.didLoadViewController()
     }
     
@@ -42,5 +43,13 @@ extension UserProfileViewController: UserProfileViewPresenterOutput {
             self.profileNameLabel.text = userName
         }
     }
-    
+    func setUserProfileImage(imageData: Data) {
+        DispatchQueue.main.async {
+            self.profileImageView.image = UIImage(data: imageData)!
+            self.profileImageView.alpha = 0
+            UIView.animate(withDuration: 0.25, animations: {
+                self.profileImageView.alpha = 1
+            })
+        }
+    }
 }

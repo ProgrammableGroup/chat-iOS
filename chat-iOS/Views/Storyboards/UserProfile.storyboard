@@ -36,13 +36,13 @@
                                     <action selector="tapEditProfileButton:" destination="QLB-Jb-sKT" eventType="touchUpInside" id="bKN-vO-h56"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GiA-YA-9D0">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GiA-YA-9D0">
                                 <rect key="frame" x="92.5" y="140" width="135" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="4TJ-cL-AYn"/>
                                     <constraint firstAttribute="width" constant="135" id="kFp-vx-dF0"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="50"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -68,7 +68,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gFc-71-pOa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="211.59420289855075" y="-308.03571428571428"/>
+            <point key="canvasLocation" x="-2" y="-290"/>
         </scene>
     </scenes>
 </document>
