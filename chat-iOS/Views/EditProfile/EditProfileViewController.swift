@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 final class EditProfileViewController: UIViewController {
     private var presenter: EditProfileViewPresenterProtocol!
@@ -24,11 +25,9 @@ final class EditProfileViewController: UIViewController {
     }
     
     
-    
     func inject(with presenter: EditProfileViewPresenterProtocol) {
         self.presenter = presenter
         self.presenter.view = self
-        
     }
     
     func setupNavigationItem() {
@@ -54,28 +53,23 @@ final class EditProfileViewController: UIViewController {
         print("キャンセルボタンタップされた")
         
         self.presenter.didTapStopEditProfileButton()
-    
     }
+    
     //TODO: ここでデータをセーブする処理を行う
     @objc func tapSaveEditProfileButton() {
         print("セーブボタンタップされた")
-        
+      
         self.presenter.didTapSaveEditProfileButton()
-        
     }
     
     @IBAction func tapChangePhotoButton(_ sender: Any) {
-        
         self.presenter.didTapChangePhotoButton()
     }
-        
-        
 }
 
 extension EditProfileViewController: EditProfileViewPresenterOutput {
     func dismissEditProfileViewController() {
         self.dismiss(animated: true, completion: nil)
-      
     }
     
     func showActionSheet() {
@@ -129,7 +123,6 @@ extension EditProfileViewController: EditProfileViewPresenterOutput {
             self.present(photoPickerVC, animated: true, completion: nil)
         }
     }
-    
 }
 
 extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -145,6 +138,7 @@ extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigati
         self.imageView.image = pickerImage
         picker.dismiss(animated: true)
     }
-    
 }
+
+
 
