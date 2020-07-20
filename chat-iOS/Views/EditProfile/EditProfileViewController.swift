@@ -15,6 +15,8 @@ final class EditProfileViewController: UIViewController {
     @IBOutlet weak var changePhotoButton: UIButton!
     @IBOutlet weak var nameTextField: UITextField!
     
+    var userName = ""
+    var profileImage = UIImage()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,10 +43,12 @@ final class EditProfileViewController: UIViewController {
     }
     
     func setupNameTextField() {
+        self.nameTextField.text = self.userName
         self.nameTextField.addBorderBottom(borderWidth: 1.0, color: .gray)
     }
     
     func setupImageView() {
+        self.imageView.image = self.profileImage
         self.imageView.layer.cornerRadius = self.imageView.frame.width / 2
     }
     
