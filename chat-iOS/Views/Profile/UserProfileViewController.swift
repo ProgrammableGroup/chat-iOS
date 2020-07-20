@@ -37,7 +37,10 @@ extension UserProfileViewController: UserProfileViewPresenterOutput {
         navigationController.modalPresentationStyle = .fullScreen
         self.present(navigationController, animated: true, completion: nil)
     }
-    func setUser() {
+    func setUserName(userName: String) {
+        DispatchQueue.main.async {
+            self.profileNameLabel.text = userName
+        }
     }
     
 }

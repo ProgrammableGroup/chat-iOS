@@ -12,7 +12,7 @@ protocol UserProfileViewPresenterProtocol {
 }
 
 protocol UserProfileViewPresenterOutput {
-    func setUser()
+    func setUserName(userName: String)
     func presentEditProfileViewController()
 }
 
@@ -29,8 +29,8 @@ final class UserProfileViewPresenter: UserProfileViewPresenterProtocol, UserProf
     func didLoadViewController() {
         self.model.fetchUser()
     }
-    func successFetchUser() {
-        self.view.setUser()
+    func successFetchUser(user: User) {
+        self.view.setUserName(userName: user.displayName)
     }
     func didTapEditProfileButton() {
         self.view.presentEditProfileViewController()
