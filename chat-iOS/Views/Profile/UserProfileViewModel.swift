@@ -55,17 +55,14 @@ final class UserProfileViewModel: UserProfileViewModelProtocol {
         let httpsReference = Storage.storage().reference(forURL: downLoadURL)
         httpsReference.getData(maxSize: 1 * 512 * 512) { data, error in
             if let error = error {
-                print("プロ画取得エラー")
                 print(error.localizedDescription)
                 return
             }
             
             guard let data = data else {
-                print("プロ画取得エラー")
                 return
             }
             
-            print("プロ画取得成功!")
             self.presenter.successFetchImageData(imageData: data)
         }
     }
