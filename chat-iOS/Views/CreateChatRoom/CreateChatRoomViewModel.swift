@@ -91,8 +91,39 @@ final class CreateChatRoomModel: CreateChatRoomModelProtocol {
         return self.selectedUsersArray
     }
     
-    //TODO:- Firesotreに保存する
     func createChatRoom() {
-        self.presenter.successCreateChatRoom()
+        //TODO:- 以下2行は自分自身の情報にする
+        let uid = "J5AH7imn7esru3RKZPu6"
+        let name = "Bob"
+        let memberIDs = [uid] + self.selectedUsersArray.compactMap { $0.id }
+        let roomName = name + self.selectedUsersArray.compactMap { $0.displayName }.joined(separator: ",")
+        
+        //TODO:- `thumbnailImageURL`を決めること
+        let room = Room(name: roomName, thumbnailImageURL: nil, members: memberIDs, message: "")
+        let roomData: [String: Any]
+        
+        let roomReference = self.firestore.collection("message").document("v1").collection("rooms").document()
+        let batch = self.firestore.batch()
+        
+        do {
+            roomData = try Firestore.Encoder().encode(room)
+        } catch let error {
+            print("Error: \(error.localizedDescription)")
+            return
+        }
+        
+        batch.setData(roomData, forDocument: roomReference)
+        
+        room.members.forEach { memberID in
+            batch.setData([:], forDocument: roomReference.collection("members").document(memberID))
+        }
+        
+        batch.commit { error in
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+                return
+            }
+            self.presenter.successCreateChatRoom()
+        }
     }
 }
