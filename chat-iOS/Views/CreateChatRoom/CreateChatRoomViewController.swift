@@ -181,12 +181,8 @@ extension CreateChatRoomViewController: UITableViewDelegate, UITableViewDataSour
         guard let cell = self.serchUserTableview.dequeueReusableCell(withIdentifier: self.searchedUsersCellID, for: indexPath)
                          as? SearchUserTableviewCell else { return UITableViewCell() }
         
-        cell.userNameLabel.text = self.searchedUsersArray[indexPath.item].displayName
-        if !self.selectedUsersArray.filter({ $0.id == searchedUsersArray[indexPath.item].id ?? ""}).isEmpty {
-            cell.changeFillImageRadioImageView()
-        } else {
-            cell.changeNotFillImageRadioImageView()
-        }
+        let isSelected = !self.selectedUsersArray.filter({ $0.id == searchedUsersArray[indexPath.item].id ?? ""}).isEmpty
+        cell.configure(with: self.searchedUsersArray[indexPath.item], isSelected: isSelected)
         
         //TODO:Firestoreから取得した後で表示し直すこと
         if #available(iOS 13.0, *) {

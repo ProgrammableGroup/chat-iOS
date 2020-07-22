@@ -36,23 +36,14 @@ class SearchUserTableviewCell: UITableViewCell {
         self.userNameLabel.minimumScaleFactor = 0.4
     }
     
-    public func changeFillImageRadioImageView() {
-        //TODO:- iOS12以下の画像を用意すること
+    func configure(with user: User, isSelected: Bool) {
+        self.userNameLabel.text = user.displayName
+            
         if #available(iOS 13.0, *) {
-            self.radioImageView.image = UIImage(systemName: "checkmark.seal.fill")
-            self.radioImageView.tintColor = .systemGreen
+            radioImageView.image = isSelected ? UIImage(systemName: "checkmark.seal.fill") : UIImage(systemName: "checkmark.seal")
+            radioImageView.tintColor = isSelected ? .systemGreen : .systemGray
         } else {
-            // Fallback on earlier versions
-        }
-    }
-    
-    public func changeNotFillImageRadioImageView() {
-        //TODO:- iOS12以下の画像を用意すること
-        if #available(iOS 13.0, *) {
-            self.radioImageView.image = UIImage(systemName: "checkmark.seal")
-            self.radioImageView.tintColor = .systemGray
-        } else {
-            // Fallback on earlier versions
+            //TODO:- iOS12以下の画像を用意すること
         }
     }
 
