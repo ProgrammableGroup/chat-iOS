@@ -9,12 +9,12 @@ import UIKit
 
 struct CreateChatRoomViewBuilder {
     static func create() -> UIViewController {
-        guard let CreateChatRoomViewController = CreateChatRoomViewController.loadFromStoryboard() as? CreateChatRoomViewController else {
+        guard let createChatRoomViewController = CreateChatRoomViewController.loadFromStoryboard() as? CreateChatRoomViewController else {
             fatalError("fatal: Failed to initialize the CreateChatRoomViewController")
         }
         let model = CreateChatRoomModel()
         let presenter = CreateChatRoomViewPresenter(model: model)
-        CreateChatRoomViewController.inject(with: presenter)
-        return CreateChatRoomViewController
+        createChatRoomViewController.inject(with: presenter)
+        return createChatRoomViewController
     }
 }
