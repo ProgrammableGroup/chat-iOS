@@ -7,20 +7,24 @@
 
 protocol CreateChatRoomViewPresenterProtocol {
     var view: CreateChatRoomViewPresenterOutput! { get set }
+    var numberOfSearchedUsers: Int { get }
+    var numberOfSelectedUsers: Int { get }
     
     func didSelectedSerchUserTableview(selectedUser: User)
     func didTapSelectedUserCollectionViewCellDeleteUserButton(index: Int)
     
     func didTapStopCreateRoomButton()
-    func didTapCreateRoomutton(selectedUsersArray: [User])
+    func didTapCreateRoomutton()
     
     func didSearchBarSearchButtonClicked(searchText: String)
+    
+    func getSelectedUsersArray() -> [User]
+    func getSearchedUsersArray() -> [User]
 }
 
 protocol CreateChatRoomViewPresenterOutput: class {
-    func reloadSerchUserTableview(updatedSearchedUsersArray: [User])
     func reloadSerchUserTableview()
-    func reloadSelectedUserCollectionView(updatedSelectedUsersArray: [User])
+    func reloadSelectedUserCollectionView()
     
     func hiddenSelectedUsersCollectionView()
     func dismissCreateChatRoomVC()
@@ -33,6 +37,14 @@ protocol CreateChatRoomViewPresenterOutput: class {
 final class CreateChatRoomViewPresenter: CreateChatRoomViewPresenterProtocol, CreateChatRoomModelOutput {
     weak var view: CreateChatRoomViewPresenterOutput!
     private var model: CreateChatRoomModelProtocol
+    
+    var numberOfSearchedUsers: Int {
+        return self.model.searchedUsersArray.count
+    }
+    
+    var numberOfSelectedUsers: Int {
+        return model.selectedUsersArray.count
+    }
     
     init(model: CreateChatRoomModelProtocol) {
         self.model = model
@@ -50,7 +62,7 @@ final class CreateChatRoomViewPresenter: CreateChatRoomViewPresenterProtocol, Cr
     func didTapSelectedUserCollectionViewCellDeleteUserButton(index: Int) {
         let updatedSelectedUsersArray = self.model.removeSelectedUsersArray(index: index)
         
-        self.view.reloadSelectedUserCollectionView(updatedSelectedUsersArray: updatedSelectedUsersArray)
+        self.view.reloadSelectedUserCollectionView()
         self.view.reloadSerchUserTableview()
         if updatedSelectedUsersArray.isEmpty { self.view.hiddenSelectedUsersCollectionView()}
     }
@@ -59,10 +71,9 @@ final class CreateChatRoomViewPresenter: CreateChatRoomViewPresenterProtocol, Cr
         self.view.dismissCreateChatRoomVC()
     }
     
-    func didTapCreateRoomutton(selectedUsersArray: [User]) {
-        guard !selectedUsersArray.isEmpty else { return }
-        
-        self.model.createChatRoom(roomUser: selectedUsersArray)
+    func didTapCreateRoomutton() {
+        guard !self.getSelectedUsersArray().isEmpty else { return }
+        self.model.createChatRoom()
     }
     
     func didSearchBarSearchButtonClicked(searchText: String) {
@@ -71,19 +82,22 @@ final class CreateChatRoomViewPresenter: CreateChatRoomViewPresenterProtocol, Cr
         self.model.searchUser(searchText: searchText)
     }
     
-    func successSearchUser(searchedUsers: [User]) {
-        self.view.reloadSerchUserTableview(updatedSearchedUsersArray: searchedUsers)
+    func getSelectedUsersArray() -> [User] { return self.model.selectedUsersArray }
+    func getSearchedUsersArray() -> [User] { return self.model.searchedUsersArray }
+    
+    func successSearchUser() {
+        self.view.reloadSerchUserTableview()
         self.view.stopActivityIndicator()
     }
     
-    func successRemoveSelectedUser(updatedSelectedUsersArray: [User]) {
-        self.view.reloadSelectedUserCollectionView(updatedSelectedUsersArray: updatedSelectedUsersArray)
+    func successRemoveSelectedUser() {
+        self.view.reloadSelectedUserCollectionView()
         self.view.reloadSerchUserTableview()
-        if updatedSelectedUsersArray.isEmpty { self.view.hiddenSelectedUsersCollectionView()}
+        if getSelectedUsersArray().isEmpty { self.view.hiddenSelectedUsersCollectionView()}
     }
     
-    func successAppendUser(updatedSelectedUsersArray: [User]) {
-        self.view.reloadSelectedUserCollectionView(updatedSelectedUsersArray: updatedSelectedUsersArray)
+    func successAppendUser() {
+        self.view.reloadSelectedUserCollectionView()
         self.view.reloadSerchUserTableview()
     }
     

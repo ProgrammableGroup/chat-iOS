@@ -9,28 +9,31 @@ import Firebase
 
 protocol CreateChatRoomModelProtocol {
     var presenter: CreateChatRoomModelOutput! { get set }
+    var selectedUsersArray: [User] { get set }
+    var searchedUsersArray: [User] { get set }
     
     func isContaintsUser(user: User) -> Bool
     func searchUser(searchText: String)
     func removeSelectedUserFromSelectedUserArray(user: User)
     func appendUserToSelectedUserArray(user: User)
     func removeSelectedUsersArray(index: Int) -> [User]
-    func createChatRoom(roomUser: [User])
+    func createChatRoom()
 }
 
 protocol CreateChatRoomModelOutput: class {
-    func successRemoveSelectedUser(updatedSelectedUsersArray: [User])
-    func successAppendUser(updatedSelectedUsersArray: [User])
+    func successRemoveSelectedUser()
+    func successAppendUser()
     
     func successCreateChatRoom()
     
-    func successSearchUser(searchedUsers: [User])
+    func successSearchUser()
 }
 
 final class CreateChatRoomModel: CreateChatRoomModelProtocol {
     weak var presenter: CreateChatRoomModelOutput!
     private var firestore: Firestore!
-    private var selectedUsersArray: [User] = Array()
+    var selectedUsersArray: [User] = Array()
+    var searchedUsersArray: [User] = Array()
     
     init() {
         self.firestore = Firestore.firestore()
@@ -56,7 +59,8 @@ final class CreateChatRoomModel: CreateChatRoomModelProtocol {
                 return try? queryDocumentSnapshot.data(as: User.self)
             }
             
-            self?.presenter.successSearchUser(searchedUsers: searchedUsers)
+            self?.searchedUsersArray = searchedUsers
+            self?.presenter.successSearchUser()
         }
     }
     
@@ -71,13 +75,12 @@ final class CreateChatRoomModel: CreateChatRoomModelProtocol {
     func removeSelectedUserFromSelectedUserArray(user: User) {
         self.selectedUsersArray = self.selectedUsersArray.filter({ $0.id != user.id })
         
-        self.presenter.successRemoveSelectedUser(updatedSelectedUsersArray: self.selectedUsersArray)
+        self.presenter.successRemoveSelectedUser()
     }
     
     func appendUserToSelectedUserArray(user: User) {
         self.selectedUsersArray.append(user)
-        
-        self.presenter.successAppendUser(updatedSelectedUsersArray: self.selectedUsersArray)
+        self.presenter.successAppendUser()
     }
     
     /// `selectedUsersArray`からあるインデックスを削除する
@@ -89,7 +92,7 @@ final class CreateChatRoomModel: CreateChatRoomModelProtocol {
     }
     
     //TODO:- Firesotreに保存する
-    func createChatRoom(roomUser: [User]) {
+    func createChatRoom() {
         self.presenter.successCreateChatRoom()
     }
 }

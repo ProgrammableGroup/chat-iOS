@@ -16,9 +16,6 @@ final class CreateChatRoomViewController: UIViewController {
     
     @IBOutlet weak var selectedUserCollectionViewBottomsConstraints: NSLayoutConstraint!
     
-    var searchedUsersArray: [User] = Array()
-    var selectedUsersArray: [User] = Array()
-    
     var activityIndicator = UIActivityIndicatorView()
     
     private let searchedUsersCellID = "SearchUserTableviewCell"
@@ -96,7 +93,7 @@ final class CreateChatRoomViewController: UIViewController {
     }
 
     @objc func tapCreateRoomButton() {
-        self.presenter.didTapCreateRoomutton(selectedUsersArray: self.selectedUsersArray)
+        self.presenter.didTapCreateRoomutton()
     }
     
     /// `selectedUserCollectionView`にあるバツボタンタップされたときに呼ばれる関数。
@@ -112,18 +109,11 @@ final class CreateChatRoomViewController: UIViewController {
 }
 
 extension CreateChatRoomViewController: CreateChatRoomViewPresenterOutput {
-    func reloadSerchUserTableview(updatedSearchedUsersArray: [User]) {
-        self.searchedUsersArray = updatedSearchedUsersArray
-        
-        DispatchQueue.main.async { self.serchUserTableview.reloadData() }
-    }
-    
     func reloadSerchUserTableview() {
         DispatchQueue.main.async { self.serchUserTableview.reloadData() }
     }
     
-    func reloadSelectedUserCollectionView(updatedSelectedUsersArray: [User]) {
-        self.selectedUsersArray = updatedSelectedUsersArray
+    func reloadSelectedUserCollectionView() {
         
         DispatchQueue.main.async {
             if self.selectedUserCollectionView.isHidden {
@@ -156,11 +146,7 @@ extension CreateChatRoomViewController: CreateChatRoomViewPresenterOutput {
     }
     
     func clearSearchUserTableView() {
-        self.searchedUsersArray.removeAll()
-        
-        DispatchQueue.main.async {
-            self.serchUserTableview.reloadData()
-        }
+        DispatchQueue.main.async { self.serchUserTableview.reloadData() }
     }
     
     func startActivityIndicator() {
@@ -174,15 +160,17 @@ extension CreateChatRoomViewController: CreateChatRoomViewPresenterOutput {
 
 extension CreateChatRoomViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.searchedUsersArray.count
+        return self.presenter.numberOfSearchedUsers
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = self.serchUserTableview.dequeueReusableCell(withIdentifier: self.searchedUsersCellID, for: indexPath)
                          as? SearchUserTableviewCell else { return UITableViewCell() }
         
-        let isSelected = !self.selectedUsersArray.filter({ $0.id == searchedUsersArray[indexPath.item].id ?? ""}).isEmpty
-        cell.configure(with: self.searchedUsersArray[indexPath.item], isSelected: isSelected)
+        let selectedUsersArray: [User] = self.presenter.getSelectedUsersArray()
+        let searchedUsersArray: [User] = self.presenter.getSearchedUsersArray()
+        let isSelected = !selectedUsersArray.filter({ $0.id == searchedUsersArray[indexPath.item].id ?? ""}).isEmpty
+        cell.configure(with: searchedUsersArray[indexPath.item], isSelected: isSelected)
         
         //TODO:Firestoreから取得した後で表示し直すこと
         if #available(iOS 13.0, *) {
@@ -195,21 +183,23 @@ extension CreateChatRoomViewController: UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let searchedUsersArray: [User] = self.presenter.getSearchedUsersArray()
         self.serchUserTableview.deselectRow(at: indexPath, animated: true)
-        self.presenter.didSelectedSerchUserTableview(selectedUser: self.searchedUsersArray[indexPath.item])
+        self.presenter.didSelectedSerchUserTableview(selectedUser: searchedUsersArray[indexPath.item])
     }
   
 }
 
 extension CreateChatRoomViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.selectedUsersArray.count
+        return self.presenter.numberOfSelectedUsers
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: selectedUsersCellID, for: indexPath) as! SelectedUserCollectionViewCell
+        let selectedUsersArray: [User] = self.presenter.getSelectedUsersArray()
         
-        cell.userNameLabel.text = self.selectedUsersArray[indexPath.item].displayName
+        cell.userNameLabel.text = selectedUsersArray[indexPath.item].displayName
         
         cell.deleteUserButton.tag = indexPath.item
         cell.deleteUserButton.addTarget(self, action: #selector(tapSelectedUserCollectionViewCellDeleteUserButton(_:)), for: .touchUpInside)
