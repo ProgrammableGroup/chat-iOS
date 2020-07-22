@@ -80,9 +80,12 @@ extension SelectChatViewController: SelectChatViewPresenterOutput {
     }
 
     func transitionToChatsViewController(selectedRoom room: Room) {
-        //TODO:- 画面遷移時に加えて値の引き渡しをする
-        let chatsViewController = ChatsViewBuilder.create()
+
+        guard let roomId = room.id else { return }
+        guard let roomName = room.name else { return }
+        let chatsViewController = ChatsViewBuilder.create(withRoomId: roomId, withRoomName: roomName)
         self.navigationController?.pushViewController(chatsViewController, animated: true)
+
     }
     
 }
