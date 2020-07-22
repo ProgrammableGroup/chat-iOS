@@ -39,7 +39,7 @@ final class CreateChatRoomViewController: UIViewController {
         self.navigationItem.title = "Choose friends"
         let stopItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(tapStopCreateRoomButton))
         self.navigationItem.leftBarButtonItem = stopItem
-        let saveItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(tapCreateRoomutton))
+        let saveItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(tapCreateRoomButton))
         self.navigationItem.rightBarButtonItem = saveItem
     }
     
@@ -95,7 +95,7 @@ final class CreateChatRoomViewController: UIViewController {
         self.presenter.didTapStopCreateRoomButton()
     }
 
-    @objc func tapCreateRoomutton() {
+    @objc func tapCreateRoomButton() {
         self.presenter.didTapCreateRoomutton(selectedUsersArray: self.selectedUsersArray)
     }
     
