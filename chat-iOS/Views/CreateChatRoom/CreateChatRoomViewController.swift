@@ -173,7 +173,6 @@ extension CreateChatRoomViewController: UITableViewDelegate, UITableViewDataSour
         self.serchUserTableview.deselectRow(at: indexPath, animated: true)
         self.presenter.didSelectedSerchUserTableview(selectedUser: searchedUsersArray[indexPath.item])
     }
-  
 }
 
 extension CreateChatRoomViewController: UICollectionViewDelegate, UICollectionViewDataSource {

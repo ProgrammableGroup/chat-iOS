@@ -92,7 +92,7 @@ final class CreateChatRoomModel: CreateChatRoomModelProtocol {
     }
     
     func createChatRoom() {
-        //TODO:- 以下2行は自分自身の情報にする
+        //TODO:- 以下2行は自分自身の情報にする。Auth()から取得する。
         let uid = "J5AH7imn7esru3RKZPu6"
         let name = "Bob"
         let memberIDs = [uid] + self.selectedUsersArray.compactMap { $0.id }

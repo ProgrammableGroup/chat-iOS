@@ -37,8 +37,9 @@ class SelectedUserCollectionViewCell: UICollectionViewCell {
         self.deleteUserButton.layer.masksToBounds = true
     }
     
+    /// ボタンがタプされた時にクロージャで削除する
+    /// - Parameter sender: UIButton
     @IBAction func tapDeleteUserButton(_ sender: Any) {
         self.deleteUserButtonAction?()
     }
-    
 }
