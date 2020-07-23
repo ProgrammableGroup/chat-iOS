@@ -12,6 +12,8 @@ class SelectedUserCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var deleteUserButton: UIButton!
     
+    var deleteUserButtonAction: (() -> Void)?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -34,4 +36,9 @@ class SelectedUserCollectionViewCell: UICollectionViewCell {
         self.deleteUserButton.layer.cornerRadius = self.deleteUserButton.frame.width / 2
         self.deleteUserButton.layer.masksToBounds = true
     }
+    
+    @IBAction func tapDeleteUserButton(_ sender: Any) {
+        self.deleteUserButtonAction?()
+    }
+    
 }

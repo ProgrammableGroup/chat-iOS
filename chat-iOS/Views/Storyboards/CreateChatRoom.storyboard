@@ -124,6 +124,9 @@
                                                     <state key="normal" image="xmark.circle.fill" catalog="system">
                                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="tapDeleteUserButton:" destination="umP-Mw-QxN" eventType="touchUpInside" id="ssT-XR-1ah"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>

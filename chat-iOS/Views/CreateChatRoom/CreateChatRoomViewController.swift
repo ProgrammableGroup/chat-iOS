@@ -96,12 +96,6 @@ final class CreateChatRoomViewController: UIViewController {
         self.presenter.didTapCreateRoomutton()
     }
     
-    /// `selectedUserCollectionView`にあるバツボタンタップされたときに呼ばれる関数。
-    /// - Parameter button: ボタンの`tag`でどのindexを消すかがわかる
-    @objc func tapSelectedUserCollectionViewCellDeleteUserButton(_ button: UIButton) {
-        self.presenter.didTapSelectedUserCollectionViewCellDeleteUserButton(index: button.tag)
-    }
-    
     func inject(with presenter: CreateChatRoomViewPresenterProtocol) {
         self.presenter = presenter
         self.presenter.view = self
@@ -193,8 +187,9 @@ extension CreateChatRoomViewController: UICollectionViewDelegate, UICollectionVi
         
         cell.userNameLabel.text = selectedUsersArray[indexPath.item].displayName
         
-        cell.deleteUserButton.tag = indexPath.item
-        cell.deleteUserButton.addTarget(self, action: #selector(tapSelectedUserCollectionViewCellDeleteUserButton(_:)), for: .touchUpInside)
+        cell.deleteUserButtonAction = { [weak self] in
+            self?.presenter.didTapSelectedUserCollectionViewCellDeleteUserButton(index: indexPath.item)
+        }
         
         //TODO:Firestoreから取得した後で表示し直すこと
         if #available(iOS 13.0, *) {
