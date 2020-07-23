@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="eal-jp-sYP">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Select Chat View Controller-->
+        <scene sceneID="V40-qS-iLb">
+            <objects>
+                <viewController id="eal-jp-sYP" customClass="SelectChatViewController" customModule="chat_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gOO-pQ-6oA">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3cg-eT-4Ga">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="3cg-eT-4Ga" firstAttribute="bottom" secondItem="ieU-cA-hYd" secondAttribute="bottom" id="1Xa-gD-ava"/>
+                            <constraint firstItem="3cg-eT-4Ga" firstAttribute="leading" secondItem="ieU-cA-hYd" secondAttribute="leading" id="Cfd-vA-O1Y"/>
+                            <constraint firstItem="3cg-eT-4Ga" firstAttribute="top" secondItem="ieU-cA-hYd" secondAttribute="top" id="LdO-Hr-wOY"/>
+                            <constraint firstItem="3cg-eT-4Ga" firstAttribute="trailing" secondItem="ieU-cA-hYd" secondAttribute="trailing" id="UUJ-J9-BIu"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ieU-cA-hYd"/>
+                    </view>
+                    <connections>
+                        <outlet property="selectChatTableView" destination="3cg-eT-4Ga" id="XiG-gb-QX6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="H0G-jw-nxa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="308.69565217391306" y="59.598214285714285"/>
+        </scene>
+    </scenes>
+</document>

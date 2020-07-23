@@ -20,9 +20,13 @@ protocol ChatsViewPresenterOutput: class {
 final class ChatsViewPresenter: ChatsViewPresenterProtocol, ChatsViewModelOutput {
     weak var view: ChatsViewPresenterOutput!
     private var model: ChatsViewModelProtocol
+    private var roomId: String
+    private var roomName: String
     
-    init(model: ChatsViewModelProtocol) {
+    init(model: ChatsViewModelProtocol, withRoomId roomId: String, withRoomName roomName: String) {
         self.model = model
+        self.roomId = roomId
+        self.roomName = roomName
         self.model.presenter = self
     }
     

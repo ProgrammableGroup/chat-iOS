@@ -21,10 +21,9 @@ final class MainTabBarViewController: UITabBarController {
         
         let userProfileVC = UserProfileViewBuilder.create()
         let userProfileNavigationController = UINavigationController(rootViewController: userProfileVC)
-    
-        //TODO:- ここはチャットセレクト画面に遷移すること
-        let chatsVC = ChatsViewBuilder.create()
-        let chatsNavigationController = UINavigationController(rootViewController: chatsVC)
+
+        let selectChatVC = SelectChatViewBuilder.create()
+        let chatsNavigationController = UINavigationController(rootViewController: selectChatVC)
         
         //TODO:- iOS12以下の場合の画像を用意すること
         if #available(iOS 13.0, *) {
@@ -35,7 +34,7 @@ final class MainTabBarViewController: UITabBarController {
             let userProfileTabBarItemSelectedImage = UIImage(systemName: "person.circle.fill")
             
             userProfileVC.tabBarItem = UITabBarItem(title: nil, image: userProfileTabBarItemImage, selectedImage: userProfileTabBarItemSelectedImage)
-            chatsVC.tabBarItem = UITabBarItem(title: nil, image: chatsTabBarItemImage, selectedImage: chatsTabBarItemSelectedImage)
+            selectChatVC.tabBarItem = UITabBarItem(title: nil, image: chatsTabBarItemImage, selectedImage: chatsTabBarItemSelectedImage)
         } else {
             // Fallback on earlier versions
         }

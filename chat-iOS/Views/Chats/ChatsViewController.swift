@@ -19,7 +19,7 @@ final class ChatsViewController: UIViewController, UICollectionViewDelegateFlowL
     @IBOutlet weak var sendButton: UIButton!
  
     var transScripts: [Transcript] = Array()
-    
+
     let chatsCellID = "chatsCellID"
     
     override func viewDidLoad() {
