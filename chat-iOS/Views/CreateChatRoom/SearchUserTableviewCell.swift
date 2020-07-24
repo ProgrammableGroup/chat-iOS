@@ -22,6 +22,7 @@ class SearchUserTableviewCell: UITableViewCell {
     }
     
     private func setupRadioImageView() {
+        self.radioImageView.contentMode = .scaleAspectFill
         self.radioImageView.layer.cornerRadius = self.radioImageView.frame.width / 2
         self.radioImageView.layer.masksToBounds = true
     }
