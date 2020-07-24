@@ -153,10 +153,9 @@ extension CreateChatRoomViewController: UITableViewDelegate, UITableViewDataSour
         guard let cell = self.serchUserTableview.dequeueReusableCell(withIdentifier: self.searchedUsersCellID, for: indexPath)
                          as? SearchUserTableviewCell else { return UITableViewCell() }
         
-        let selectedUsersArray: [User] = self.presenter.getSelectedUsersArray()
-        let searchedUsersArray: [User] = self.presenter.getSearchedUsersArray()
-        let isSelected = !selectedUsersArray.filter({ $0.id == searchedUsersArray[indexPath.item].id ?? ""}).isEmpty
-        cell.configure(with: searchedUsersArray[indexPath.item], isSelected: isSelected)
+        let user = presenter.searchedUsers[indexPath.item]
+        let isSelected = presenter.isSelected(user: user)
+        cell.configure(with: user, isSelected: isSelected)
         
         //TODO:Firestoreから取得した後で表示し直すこと
         if #available(iOS 13.0, *) {
@@ -169,7 +168,7 @@ extension CreateChatRoomViewController: UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let searchedUsersArray: [User] = self.presenter.getSearchedUsersArray()
+        let searchedUsersArray: [User] = self.presenter.searchedUsers
         self.serchUserTableview.deselectRow(at: indexPath, animated: true)
         self.presenter.didSelectedSerchUserTableview(selectedUser: searchedUsersArray[indexPath.item])
     }
@@ -182,10 +181,8 @@ extension CreateChatRoomViewController: UICollectionViewDelegate, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: selectedUsersCellID, for: indexPath) as! SelectedUserCollectionViewCell
-        let selectedUsersArray: [User] = self.presenter.getSelectedUsersArray()
-        
-        cell.userNameLabel.text = selectedUsersArray[indexPath.item].displayName
-        
+
+        cell.configure(with: self.presenter.selectedUsers[indexPath.item])
         cell.deleteUserButtonAction = { [weak self] in
             self?.presenter.didTapSelectedUserCollectionViewCellDeleteUserButton(index: indexPath.item)
         }

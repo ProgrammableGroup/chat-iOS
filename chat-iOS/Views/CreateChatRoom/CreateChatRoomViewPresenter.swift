@@ -9,6 +9,10 @@ protocol CreateChatRoomViewPresenterProtocol {
     var view: CreateChatRoomViewPresenterOutput! { get set }
     var numberOfSearchedUsers: Int { get }
     var numberOfSelectedUsers: Int { get }
+    var searchedUsers: [User] { get }
+    var selectedUsers: [User] { get }
+    
+    func isSelected(user: User) -> Bool
     
     func didSelectedSerchUserTableview(selectedUser: User)
     func didTapSelectedUserCollectionViewCellDeleteUserButton(index: Int)
@@ -17,9 +21,6 @@ protocol CreateChatRoomViewPresenterProtocol {
     func didTapCreateRoomutton()
     
     func didSearchBarSearchButtonClicked(searchText: String)
-    
-    func getSelectedUsersArray() -> [User]
-    func getSearchedUsersArray() -> [User]
 }
 
 protocol CreateChatRoomViewPresenterOutput: class {
@@ -44,6 +45,14 @@ final class CreateChatRoomViewPresenter: CreateChatRoomViewPresenterProtocol, Cr
     
     var numberOfSelectedUsers: Int {
         return model.selectedUsersArray.count
+    }
+    
+    var searchedUsers: [User] {
+        return model.searchedUsersArray
+    }
+    
+    var selectedUsers: [User] {
+        return model.selectedUsersArray
     }
     
     init(model: CreateChatRoomModelProtocol) {
@@ -72,7 +81,7 @@ final class CreateChatRoomViewPresenter: CreateChatRoomViewPresenterProtocol, Cr
     }
     
     func didTapCreateRoomutton() {
-        guard !self.getSelectedUsersArray().isEmpty else { return }
+        guard !self.selectedUsers.isEmpty else { return }
         self.model.createChatRoom()
     }
     
@@ -82,8 +91,7 @@ final class CreateChatRoomViewPresenter: CreateChatRoomViewPresenterProtocol, Cr
         self.model.searchUser(searchText: searchText)
     }
     
-    func getSelectedUsersArray() -> [User] { return self.model.selectedUsersArray }
-    func getSearchedUsersArray() -> [User] { return self.model.searchedUsersArray }
+    func isSelected(user: User) -> Bool { return self.selectedUsers.firstIndex { user.id == $0.id } != nil }
     
     func successSearchUser() {
         self.view.reloadSerchUserTableview()
@@ -93,7 +101,7 @@ final class CreateChatRoomViewPresenter: CreateChatRoomViewPresenterProtocol, Cr
     func successRemoveSelectedUser() {
         self.view.reloadSelectedUserCollectionView()
         self.view.reloadSerchUserTableview()
-        if getSelectedUsersArray().isEmpty { self.view.hiddenSelectedUsersCollectionView()}
+        if self.selectedUsers.isEmpty { self.view.hiddenSelectedUsersCollectionView()}
     }
     
     func successAppendUser() {
