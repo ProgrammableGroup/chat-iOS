@@ -51,7 +51,7 @@ extension UserProfileViewController: UserProfileViewPresenterOutput {
     func setUserProfileImage(imageData: Data) {
         DispatchQueue.main.async {
             self.editProfileButton.isEnabled = true
-            self.profileImageView.image = UIImage(data: imageData)!
+            self.profileImageView.image = UIImage(data: imageData) ?? UIImage()
             self.profileImageView.alpha = 0
             UIView.animate(withDuration: 0.25, animations: {
                 self.profileImageView.alpha = 1
