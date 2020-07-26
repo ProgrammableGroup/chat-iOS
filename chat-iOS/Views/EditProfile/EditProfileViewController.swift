@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 final class EditProfileViewController: UIViewController {
     private var presenter: EditProfileViewPresenterProtocol!
@@ -14,6 +15,8 @@ final class EditProfileViewController: UIViewController {
     @IBOutlet weak var changePhotoButton: UIButton!
     @IBOutlet weak var nameTextField: UITextField!
     
+    var userName = ""
+    var profileImage = UIImage()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,11 +27,9 @@ final class EditProfileViewController: UIViewController {
     }
     
     
-    
     func inject(with presenter: EditProfileViewPresenterProtocol) {
         self.presenter = presenter
         self.presenter.view = self
-        
     }
     
     func setupNavigationItem() {
@@ -42,10 +43,12 @@ final class EditProfileViewController: UIViewController {
     }
     
     func setupNameTextField() {
+        self.nameTextField.text = self.userName
         self.nameTextField.addBorderBottom(borderWidth: 1.0, color: .gray)
     }
     
     func setupImageView() {
+        self.imageView.image = self.profileImage
         self.imageView.layer.cornerRadius = self.imageView.frame.width / 2
     }
     
@@ -54,28 +57,23 @@ final class EditProfileViewController: UIViewController {
         print("キャンセルボタンタップされた")
         
         self.presenter.didTapStopEditProfileButton()
-    
     }
+    
     //TODO: ここでデータをセーブする処理を行う
     @objc func tapSaveEditProfileButton() {
         print("セーブボタンタップされた")
-        
+      
         self.presenter.didTapSaveEditProfileButton()
-        
     }
     
     @IBAction func tapChangePhotoButton(_ sender: Any) {
-        
         self.presenter.didTapChangePhotoButton()
     }
-        
-        
 }
 
 extension EditProfileViewController: EditProfileViewPresenterOutput {
     func dismissEditProfileViewController() {
         self.dismiss(animated: true, completion: nil)
-      
     }
     
     func showActionSheet() {
@@ -129,7 +127,6 @@ extension EditProfileViewController: EditProfileViewPresenterOutput {
             self.present(photoPickerVC, animated: true, completion: nil)
         }
     }
-    
 }
 
 extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -145,6 +142,7 @@ extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigati
         self.imageView.image = pickerImage
         picker.dismiss(animated: true)
     }
-    
 }
+
+
 

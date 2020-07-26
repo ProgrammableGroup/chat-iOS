@@ -4,6 +4,7 @@
 //
 //  Created by 倉谷　明希 on 2020/06/22.
 //
+import Foundation
 
 protocol UserProfileViewPresenterProtocol {
     var view: UserProfileViewPresenterOutput! { get set }
@@ -12,7 +13,8 @@ protocol UserProfileViewPresenterProtocol {
 }
 
 protocol UserProfileViewPresenterOutput {
-    func setUser()
+    func setUserName(userName: String)
+    func setUserProfileImage(imageURL: URL)
     func presentEditProfileViewController()
 }
 
@@ -29,8 +31,12 @@ final class UserProfileViewPresenter: UserProfileViewPresenterProtocol, UserProf
     func didLoadViewController() {
         self.model.fetchUser()
     }
-    func successFetchUser() {
-        self.view.setUser()
+    func successFetchUser(user: User) {
+        self.view.setUserName(userName: user.displayName)
+        guard let URLStr = user.profileImageURL else { return }
+        guard let encodeURLStr = URLStr.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return }
+        guard let url = URL(string: encodeURLStr) else { return }
+        self.view.setUserProfileImage(imageURL: url)
     }
     func didTapEditProfileButton() {
         self.view.presentEditProfileViewController()

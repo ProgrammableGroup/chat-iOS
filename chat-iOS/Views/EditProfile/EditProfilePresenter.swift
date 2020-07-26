@@ -30,7 +30,7 @@ final class EditProfileViewPresenter: EditProfileViewPresenterProtocol, EditProf
         self.model = model
     }
     
-    func didTapStopEditProfileButton(){
+    func didTapStopEditProfileButton() {
         view.dismissEditProfileViewController()
     }
     
@@ -38,11 +38,11 @@ final class EditProfileViewPresenter: EditProfileViewPresenterProtocol, EditProf
         self.model.saveProfile()
         
     }
-    func didTapChangePhotoButton(){
+    func didTapChangePhotoButton() {
         view.showActionSheet()
     }
     
-    func didTapPickupPhotoAction(){
+    func didTapPickupPhotoAction() {
         view.showImagePickerControllerAsPhotoLibrary()
     }
     
