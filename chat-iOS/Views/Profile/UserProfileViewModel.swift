@@ -19,6 +19,7 @@ protocol UserProfileViewModelOutput {
 final class UserProfileViewModel: UserProfileViewModelProtocol {
     var presenter: UserProfileViewModelOutput!
     var firestore: Firestore!
+    private var listner: ListenerRegistration?
     
     init() {
         self.firestore = Firestore.firestore()
@@ -26,8 +27,15 @@ final class UserProfileViewModel: UserProfileViewModelProtocol {
         self.firestore.settings = setting
     }
     
+    deinit {
+        self.listner?.remove()
+    }
+    
     func fetchUser() {
-        self.firestore.collection("message/v1/users").document("y783WJnXJqDfDED0nBvK").getDocument { (document, error) in
+        //TODO:- 認証が終わったらuidを後で変更すること
+        //guard let uid = Auth.auth().currentUser?.uid else { return }
+        let userReference = self.firestore.collection("message/v1/users").document("y783WJnXJqDfDED0nBvK")
+        self.listner = userReference.addSnapshotListener { (document, error) in
             if let error = error {
                 print("Error: \(error.localizedDescription)")
                 return
@@ -45,10 +53,7 @@ final class UserProfileViewModel: UserProfileViewModelProtocol {
             } catch {
                 fatalError()
             }
-        
-            
         }
-        
     }
     
     private func downloadProfile(downLoadURL: String) {
