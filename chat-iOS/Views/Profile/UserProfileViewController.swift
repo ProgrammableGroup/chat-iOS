@@ -16,10 +16,19 @@ final class UserProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.setupEditProfileButton()
+        self.setupProfileImageView()
+        self.presenter.didLoadViewController()
+    }
+    
+    func setupEditProfileButton() {
         editProfileButton.isEnabled = false
         editProfileButton.layer.cornerRadius = 10.0
+    }
+    
+    func setupProfileImageView() {
         profileImageView.layer.cornerRadius = profileImageView.frame.height / 2
-        self.presenter.didLoadViewController()
     }
     
     @IBAction func tapEditProfileButton(_ sender: Any) {
