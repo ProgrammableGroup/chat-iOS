@@ -14,7 +14,7 @@ protocol UserProfileViewPresenterProtocol {
 
 protocol UserProfileViewPresenterOutput {
     func setUserName(userName: String)
-    func setUserProfileImage(imageData: Data)
+    func setUserProfileImage(imageURL: URL)
     func presentEditProfileViewController()
 }
 
@@ -33,12 +33,10 @@ final class UserProfileViewPresenter: UserProfileViewPresenterProtocol, UserProf
     }
     func successFetchUser(user: User) {
         self.view.setUserName(userName: user.displayName)
-    }
-    
-    /// 画像取得成功した時呼ばれる関数
-    /// - Parameter imageData:  profile画像のデータ
-    func successFetchImageData(imageData: Data) {
-        self.view.setUserProfileImage(imageData: imageData)
+        guard let URLStr = user.profileImageURL else { return }
+        guard let encodeURLStr = URLStr.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return }
+        guard let url = URL(string: encodeURLStr) else { return }
+        self.view.setUserProfileImage(imageURL: url)
     }
     func didTapEditProfileButton() {
         self.view.presentEditProfileViewController()

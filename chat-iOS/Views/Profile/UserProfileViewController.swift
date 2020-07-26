@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Nuke
 
 final class UserProfileViewController: UIViewController {
     private var presenter: UserProfileViewPresenterProtocol!
@@ -57,14 +58,18 @@ extension UserProfileViewController: UserProfileViewPresenterOutput {
             self.navigationItem.title = userName
         }
     }
-    func setUserProfileImage(imageData: Data) {
+    func setUserProfileImage(imageURL: URL) {
+        //TODO:- URLの確認とか画像の用意とかすること
+        var defaultImage = UIImage()
+        if #available(iOS 13.0, *) {
+            defaultImage = UIImage(systemName: "person.circle.fill") ?? UIImage()
+        } else {
+            // Fallback on earlier versions
+        }
         DispatchQueue.main.async {
             self.editProfileButton.isEnabled = true
-            self.profileImageView.image = UIImage(data: imageData) ?? UIImage()
-            self.profileImageView.alpha = 0
-            UIView.animate(withDuration: 0.25, animations: {
-                self.profileImageView.alpha = 1
-            })
+            let options = ImageLoadingOptions(placeholder: defaultImage, failureImage: defaultImage)
+            loadImage(with: imageURL, options: options, into: self.profileImageView, progress: nil, completion: nil)
         }
     }
 }
